@@ -39,56 +39,84 @@
       z-index: 0;
     }
 
-    /* ── BACK NAV ── */
-    .back-nav {
+    /* ── GNB ── */
+    .gnb {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
       background: var(--ink);
       border-bottom: var(--panel-border);
-      padding: 10px 40px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
     }
 
-    .back-btn {
-      display: inline-flex;
+    .gnb-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: stretch;
+      height: 52px;
+    }
+
+    .gnb-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      color: var(--yellow);
+      text-decoration: none;
+      display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      padding-right: 24px;
+      border-right: 1.5px solid rgba(245,240,232,0.1);
+      margin-right: 4px;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+
+    .gnb-logo:hover { opacity: 0.75; }
+
+    .gnb-logo-year {
+      font-size: 11px;
+      color: rgba(245,240,232,0.25);
+      letter-spacing: 2px;
+      border: 1px solid rgba(245,240,232,0.12);
+      padding: 2px 6px;
+    }
+
+    .gnb-nav {
+      display: flex;
+      list-style: none;
+      align-items: stretch;
+    }
+
+    .gnb-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 18px;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 13px;
       letter-spacing: 2px;
-      color: rgba(245,240,232,0.6);
+      color: rgba(245,240,232,0.4);
       text-decoration: none;
-      padding: 6px 14px;
-      border: 1.5px solid rgba(245,240,232,0.2);
-      transition: all 0.15s;
+      border-right: 1.5px solid rgba(245,240,232,0.06);
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+      cursor: pointer;
+      background: transparent;
+      border-top: none;
+      border-bottom: 3px solid transparent;
+      border-left: none;
+      font-weight: normal;
     }
 
-    .back-btn:hover {
-      color: var(--yellow);
-      border-color: var(--yellow);
-      box-shadow: 2px 2px 0 var(--yellow);
-      transform: translate(-1px,-1px);
-    }
+    .gnb-item:hover { color: var(--paper); background: rgba(245,240,232,0.04); }
 
-    .nav-breadcrumb {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: rgba(245,240,232,0.3);
-    }
+    .gnb-item.active          { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .gnb-item.active.gnb-land { color: #34d399;       border-bottom-color: #34d399; }
+    .gnb-item.active.gnb-sea  { color: #38bdf8;       border-bottom-color: #38bdf8; }
 
-    .nav-breadcrumb span {
-      color: rgba(245,240,232,0.15);
-      margin: 0 8px;
-    }
-
-    .nav-breadcrumb em {
-      color: var(--yellow);
-      font-style: normal;
-    }
+    .gnb-emoji { font-size: 15px; line-height: 1; }
 
     /* ── DISNEY HEADER ── */
     .disney-section {
@@ -497,7 +525,10 @@
 
     /* RESPONSIVE */
     @media (max-width: 600px) {
-      .back-nav { padding: 10px 16px; }
+      .gnb-inner { padding: 0 16px; }
+      .gnb-logo-year { display: none; }
+      .gnb-item { padding: 0 10px; font-size: 11px; letter-spacing: 1px; }
+      .gnb-emoji { display: none; }
       .disney-header { padding: 36px 20px 30px; }
       .park-info-bar { padding: 16px 20px; }
       .park-info-items { gap: 20px; }
@@ -516,11 +547,15 @@
 </head>
 <body>
 
-<!-- BACK NAV -->
-<nav class="back-nav">
-  <a class="back-btn" href="index.html">← 메인으로</a>
-  <div class="nav-breadcrumb">
-    도쿄 이벤트 가이드 <span>/</span> <em>디즈니리조트 시간표</em>
+<!-- GNB -->
+<nav class="gnb">
+  <div class="gnb-inner">
+    <a class="gnb-logo" href="index.html">도쿄이벤트 <span class="gnb-logo-year">2026</span></a>
+    <ul class="gnb-nav">
+      <li><a class="gnb-item" href="index.html" id="gnb-home">이벤트 가이드</a></li>
+      <li><button class="gnb-item gnb-land" id="gnb-land" onclick="gnbSwitch('land')"><span class="gnb-emoji">🏰</span>디즈니랜드</button></li>
+      <li><button class="gnb-item gnb-sea" id="gnb-sea" onclick="gnbSwitch('sea')"><span class="gnb-emoji">⚓</span>디즈니씨</button></li>
+    </ul>
   </div>
 </nav>
 
@@ -925,7 +960,7 @@
       <div class="footer-title">도쿄 디즈니리조트 시간표 가이드</div>
       <p class="footer-note">※ 쇼 시간은 일반 기준이며 당일 변경될 수 있습니다. 공식 앱에서 반드시 확인하세요.</p>
     </div>
-    <a class="back-btn" href="index.html" style="font-size:12px;">← 이벤트 가이드로 돌아가기</a>
+    <a href="index.html" style="font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:2px; color:rgba(245,240,232,0.35); text-decoration:none;">← 이벤트 가이드로 돌아가기</a>
   </div>
 </footer>
 
@@ -935,13 +970,31 @@
     btn.classList.add('active');
     document.querySelectorAll('.park-panel').forEach(p => p.classList.add('hidden'));
     document.getElementById('panel-' + park).classList.remove('hidden');
+    gnbSetActive(park);
   }
 
-  // URL hash로 탭 초기 선택 (index.html 링크에서 #panel-sea 전달 시)
+  // GNB 활성 상태 설정
+  function gnbSetActive(park) {
+    document.querySelectorAll('.gnb-item').forEach(el => el.classList.remove('active'));
+    const el = document.getElementById('gnb-' + park);
+    if (el) el.classList.add('active');
+  }
+
+  // GNB 버튼 클릭 → 탭 전환 (페이지 이동 없음)
+  function gnbSwitch(park) {
+    const tabBtn = document.querySelector('[data-park="' + park + '"]');
+    if (tabBtn) switchPark(park, tabBtn);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 초기 활성 탭 결정 (hash 또는 기본값 land)
   const hash = location.hash.replace('#', '');
-  if (hash === 'panel-sea') {
+  const initPark = (hash === 'panel-sea') ? 'sea' : 'land';
+  if (initPark === 'sea') {
     const seaBtn = document.querySelector('[data-park="sea"]');
     if (seaBtn) switchPark('sea', seaBtn);
+  } else {
+    gnbSetActive('land');
   }
 </script>
 </body>

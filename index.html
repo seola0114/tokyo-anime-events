@@ -743,6 +743,86 @@
 
     .map-popup-link:hover { background: #ffe94a; color: #0a0a0f; }
 
+    /* ── GNB ── */
+    .gnb {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--ink);
+      border-bottom: var(--panel-border);
+    }
+
+    .gnb-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: stretch;
+      height: 52px;
+    }
+
+    .gnb-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      color: var(--yellow);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-right: 24px;
+      border-right: 1.5px solid rgba(245,240,232,0.1);
+      margin-right: 4px;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+
+    .gnb-logo:hover { opacity: 0.75; }
+
+    .gnb-logo-year {
+      font-size: 11px;
+      color: rgba(245,240,232,0.25);
+      letter-spacing: 2px;
+      border: 1px solid rgba(245,240,232,0.12);
+      padding: 2px 6px;
+    }
+
+    .gnb-nav {
+      display: flex;
+      list-style: none;
+      align-items: stretch;
+    }
+
+    .gnb-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 18px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+      border-right: 1.5px solid rgba(245,240,232,0.06);
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+      cursor: pointer;
+      background: transparent;
+      border-top: none;
+      border-bottom: 3px solid transparent;
+      border-left: none;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .gnb-item:hover { color: var(--paper); background: rgba(245,240,232,0.04); }
+
+    .gnb-item.active          { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .gnb-item.active.gnb-land { color: #34d399;       border-bottom-color: #34d399; }
+    .gnb-item.active.gnb-sea  { color: #38bdf8;       border-bottom-color: #38bdf8; }
+
+    .gnb-emoji { font-size: 15px; line-height: 1; }
+
     /* ── DISNEY LINK CARD ── */
     .disney-link-section {
       position: relative;
@@ -864,6 +944,10 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
+      .gnb-inner { padding: 0 16px; }
+      .gnb-logo-year { display: none; }
+      .gnb-item { padding: 0 10px; font-size: 11px; letter-spacing: 1px; }
+      .gnb-emoji { display: none; }
       .hero { padding: 40px 20px 36px; }
       .main { padding: 32px 16px 60px; }
       .filters { padding: 10px 16px; }
@@ -876,6 +960,18 @@
   </style>
 </head>
 <body>
+
+<!-- GNB -->
+<nav class="gnb">
+  <div class="gnb-inner">
+    <a class="gnb-logo" href="index.html">도쿄이벤트 <span class="gnb-logo-year">2026</span></a>
+    <ul class="gnb-nav">
+      <li><a class="gnb-item active" href="index.html" id="gnb-home">이벤트 가이드</a></li>
+      <li><a class="gnb-item gnb-land" href="disney.html" id="gnb-land"><span class="gnb-emoji">🏰</span>디즈니랜드</a></li>
+      <li><a class="gnb-item gnb-sea" href="disney.html#panel-sea" id="gnb-sea"><span class="gnb-emoji">⚓</span>디즈니씨</a></li>
+    </ul>
+  </div>
+</nav>
 
 <!-- ALERT TICKER -->
 <div class="alert-banner">
