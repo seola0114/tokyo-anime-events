@@ -743,558 +743,124 @@
 
     .map-popup-link:hover { background: #ffe94a; color: #0a0a0f; }
 
-    /* ── DISNEY SCHEDULE SECTION ── */
-    .disney-section {
+    /* ── DISNEY LINK CARD ── */
+    .disney-link-section {
       position: relative;
       z-index: 1;
       border-top: var(--panel-border);
-    }
-
-    .disney-header {
       background: var(--ink);
-      padding: 50px 40px 44px;
+      padding: 48px 40px;
       overflow: hidden;
-      position: relative;
     }
 
-    .disney-header::before {
+    .disney-link-section::before {
       content: '🏰⚓';
       position: absolute;
       right: 40px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 120px;
-      opacity: 0.06;
+      font-size: 100px;
+      opacity: 0.05;
       pointer-events: none;
-      line-height: 1;
     }
 
-    .disney-header-inner {
+    .disney-link-inner {
       max-width: 960px;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
       position: relative;
       z-index: 1;
     }
 
-    .disney-header-tag {
+    .disney-link-text {}
+
+    .disney-link-tag {
       display: inline-block;
       background: linear-gradient(90deg, #34d399, #38bdf8);
       color: var(--ink);
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: 3px;
-      padding: 4px 14px;
-      border: 2px solid var(--ink);
-      box-shadow: 3px 3px 0 #34d399;
-      margin-bottom: 18px;
+      padding: 3px 12px;
+      margin-bottom: 14px;
     }
 
-    .disney-header-title {
+    .disney-link-title {
       font-family: 'Black Han Sans', sans-serif;
-      font-size: clamp(32px, 5vw, 64px);
+      font-size: clamp(24px, 4vw, 40px);
       color: var(--yellow);
-      line-height: 0.95;
-      text-shadow: 4px 4px 0 #34d399, 8px 8px 0 rgba(52,211,153,0.25);
+      line-height: 1;
+      text-shadow: 3px 3px 0 #34d399;
     }
 
-    .disney-header-title em {
+    .disney-link-title em {
       color: var(--paper);
       font-style: normal;
       display: block;
+      font-size: 0.7em;
+      margin-top: 6px;
     }
 
-    .disney-header-sub {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 13px;
+    .disney-link-desc {
+      font-size: 12px;
       color: rgba(245,240,232,0.45);
       margin-top: 14px;
-      letter-spacing: 2px;
+      line-height: 1.7;
+      font-family: 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.5px;
     }
 
-    /* TABS */
-    .disney-tabs {
-      display: flex;
-      border-bottom: var(--panel-border);
-      background: var(--paper);
-    }
-
-    .disney-tab {
-      flex: 1;
+    .disney-link-btns {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      padding: 18px 20px;
-      border: none;
-      border-right: var(--panel-border);
-      background: transparent;
-      cursor: pointer;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: rgba(10,10,15,0.4);
-      transition: all 0.2s;
-      position: relative;
-    }
-
-    .disney-tab:last-child { border-right: none; }
-
-    .disney-tab .tab-emoji { font-size: 28px; }
-    .disney-tab .tab-sub {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 10px;
-      color: rgba(10,10,15,0.35);
-      letter-spacing: 1px;
-    }
-
-    .disney-tab.active {
-      color: var(--ink);
-      background: var(--paper);
-    }
-
-    .disney-tab[data-park="land"].active {
-      box-shadow: inset 0 -4px 0 #34d399;
-    }
-
-    .disney-tab[data-park="sea"].active {
-      box-shadow: inset 0 -4px 0 #38bdf8;
-    }
-
-    .disney-tab:hover:not(.active) {
-      background: rgba(10,10,15,0.03);
-    }
-
-    /* PARK PANEL */
-    .park-panel { display: block; }
-    .park-panel.hidden { display: none; }
-
-    /* INFO BAR */
-    .park-info-bar {
-      border-bottom: var(--panel-border);
-      border-left: 8px solid;
-      padding: 20px 40px;
-      background: rgba(10,10,15,0.02);
-    }
-
-    .park-info-items {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .park-info-item {}
-    .park-info-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: rgba(10,10,15,0.4);
-      margin-bottom: 4px;
-    }
-
-    .park-info-val {
-      font-family: 'Black Han Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.3;
-      color: var(--ink);
-    }
-
-    /* TIMETABLE */
-    .timetable-wrap {
-      padding: 32px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .timetable-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Black Han Sans', sans-serif;
-      font-size: 18px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    .tt-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      border: 2px solid var(--ink);
-      box-shadow: 2px 2px 0 var(--ink);
+      gap: 10px;
       flex-shrink: 0;
     }
 
-    .tt-note {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      color: rgba(10,10,15,0.45);
-      margin-left: auto;
-    }
-
-    .timetable-grid {
-      display: flex;
-      gap: 0;
-      border: var(--panel-border);
-      overflow-x: auto;
-    }
-
-    .time-axis {
-      flex-shrink: 0;
-      width: 56px;
-      border-right: var(--panel-border);
-    }
-
-    .axis-label {
-      height: 44px;
-      display: flex;
+    .disney-btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 10px;
-      letter-spacing: 1px;
-      color: rgba(10,10,15,0.3);
-      border-bottom: 1.5px solid rgba(10,10,15,0.1);
-      background: rgba(10,10,15,0.03);
-    }
-
-    .axis-slots {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .axis-time {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.5px;
-      color: rgba(10,10,15,0.4);
-      border-bottom: 1px solid rgba(10,10,15,0.07);
-    }
-
-    .day-col {
-      flex: 1;
-      min-width: 110px;
-      border-right: 1.5px solid rgba(10,10,15,0.1);
-    }
-
-    .day-col:last-child { border-right: none; }
-
-    .day-col-header {
-      height: 44px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-bottom: var(--panel-border);
-      background: var(--ink);
-      gap: 2px;
-    }
-
-    .dcol-date {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 16px;
-      letter-spacing: 1px;
-      color: var(--yellow);
-      line-height: 1;
-    }
-
-    .dcol-day {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 10px;
-      color: rgba(245,240,232,0.4);
-    }
-
-    .day-col-body {
-      position: relative;
-      height: 520px; /* 13 slots × 40px */
-    }
-
-    .show-block {
-      position: absolute;
-      left: 4px;
-      right: 4px;
-      border-radius: 0;
-      padding: 5px 6px;
-      font-size: 10px;
-      line-height: 1.3;
-    }
-
-    .land-show {
-      height: 72px;
-      background: rgba(52,211,153,0.18);
-      border: 1.5px solid #34d399;
-      border-left: 3px solid #34d399;
-    }
-
-    .land-night {
-      height: 60px;
-      background: rgba(52,211,153,0.08);
-      border: 1.5px dashed #34d399;
-      border-left: 3px solid #34d399aa;
-    }
-
-    .sea-show {
-      height: 72px;
-      background: rgba(56,189,248,0.18);
-      border: 1.5px solid #38bdf8;
-      border-left: 3px solid #38bdf8;
-    }
-
-    .sea-night {
-      height: 72px;
-      background: rgba(56,189,248,0.08);
-      border: 1.5px dashed #38bdf8;
-      border-left: 3px solid #38bdf8aa;
-    }
-
-    .show-time {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      color: rgba(10,10,15,0.7);
-      margin-bottom: 2px;
-    }
-
-    .show-name {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: rgba(10,10,15,0.8);
-      line-height: 1.3;
-    }
-
-    /* TIP CARDS */
-    .disney-tips {
-      padding: 0 40px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .tips-title {
-      font-family: 'Black Han Sans', sans-serif;
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
-
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 0;
-    }
-
-    .tip-card {
-      border: var(--panel-border);
-      margin: -1.5px;
-      padding: 20px 20px 16px;
-      background: var(--paper);
-      position: relative;
-      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
-    }
-
-    .tip-card:hover {
-      transform: translate(-3px,-3px);
-      box-shadow: var(--shadow);
-      z-index: 5;
-    }
-
-    .tip-icon {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .tip-head {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 900;
-      font-size: 13px;
-      margin-bottom: 8px;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-
-    .tip-body {
-      font-size: 11.5px;
-      line-height: 1.75;
-      color: rgba(10,10,15,0.65);
-      margin-bottom: 12px;
-    }
-
-    .tip-tag {
-      display: inline-block;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 10px;
-      letter-spacing: 2px;
-      padding: 3px 10px;
-    }
-
-    /* NOTES */
-    .disney-notes {
-      border-top: var(--panel-border);
-      background: var(--ink);
-      padding: 28px 40px;
-    }
-
-    .notes-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 24px;
-    }
-
-    .note-block {}
-
-    .note-head {
-      font-family: 'Black Han Sans', sans-serif;
       font-size: 14px;
-      color: var(--yellow);
-      margin-bottom: 8px;
+      letter-spacing: 2px;
+      padding: 14px 28px;
+      border: 2.5px solid;
+      text-decoration: none;
+      transition: all 0.15s;
+      min-width: 240px;
+      justify-content: center;
     }
 
-    .note-body {
-      font-size: 11.5px;
-      line-height: 1.75;
-      color: rgba(245,240,232,0.55);
-    }
-
-    /* ── SEA DETAILED ROUTE ── */
-    .sea-route {
-      padding: 0 40px 40px;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .sea-route-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 24px 0 20px;
-      border-bottom: var(--panel-border);
-      margin-bottom: 32px;
-    }
-
-    .route-icon { font-size: 36px; }
-
-    .route-title {
-      font-family: 'Black Han Sans', sans-serif;
-      font-size: 22px;
+    .disney-btn.land {
+      background: #34d399;
+      border-color: #34d399;
       color: var(--ink);
+      box-shadow: 4px 4px 0 rgba(52,211,153,0.4);
     }
 
-    .route-sub {
-      font-size: 12px;
-      color: rgba(10,10,15,0.45);
-      margin-top: 4px;
-      font-family: 'Noto Sans JP', sans-serif;
-      letter-spacing: 0.5px;
+    .disney-btn.land:hover {
+      transform: translate(-3px,-3px);
+      box-shadow: 7px 7px 0 rgba(52,211,153,0.4);
     }
 
-    .route-timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .route-step {
-      display: flex;
-      gap: 0;
-      position: relative;
-    }
-
-    .route-time-col {
-      flex-shrink: 0;
-      width: 72px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .route-time {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 15px;
-      letter-spacing: 1px;
+    .disney-btn.sea {
+      background: transparent;
+      border-color: #38bdf8;
       color: #38bdf8;
-      background: var(--ink);
-      padding: 4px 8px;
-      border: 2px solid #38bdf8;
-      box-shadow: 2px 2px 0 #38bdf8;
-      white-space: nowrap;
-      z-index: 1;
-      position: relative;
+      box-shadow: 4px 4px 0 rgba(56,189,248,0.3);
     }
 
-    .route-step.opening .route-time { color: #34d399; border-color: #34d399; box-shadow: 2px 2px 0 #34d399; }
-    .route-step.food .route-time { color: var(--yellow); border-color: var(--yellow); box-shadow: 2px 2px 0 var(--yellow); }
-    .route-step.night .route-time { color: #a78bfa; border-color: #a78bfa; box-shadow: 2px 2px 0 #a78bfa; }
-    .route-step.closing .route-time { color: rgba(245,240,232,0.5); border-color: rgba(245,240,232,0.2); box-shadow: none; background: rgba(10,10,15,0.5); }
-
-    .route-vline {
-      width: 2px;
-      flex: 1;
-      background: rgba(56,189,248,0.3);
-      min-height: 24px;
-    }
-
-    .route-vline.last { background: transparent; }
-
-    .route-content {
-      flex: 1;
-      padding: 0 0 28px 20px;
-      border-left: none;
-    }
-
-    .route-step-head {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 900;
-      font-size: 15px;
+    .disney-btn.sea:hover {
+      background: #38bdf8;
       color: var(--ink);
-      margin-bottom: 8px;
-      margin-top: 2px;
-      line-height: 1.4;
+      transform: translate(-3px,-3px);
+      box-shadow: 7px 7px 0 rgba(56,189,248,0.3);
     }
-
-    .route-step-body {
-      font-size: 12.5px;
-      line-height: 1.8;
-      color: rgba(10,10,15,0.68);
-      margin-bottom: 10px;
-    }
-
-    .route-warn {
-      display: inline-block;
-      color: var(--pink);
-      font-size: 11px;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
-    .route-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .r-tag {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      padding: 3px 10px;
-      border: 1.5px solid rgba(10,10,15,0.2);
-      color: rgba(10,10,15,0.5);
-      background: rgba(10,10,15,0.04);
-    }
-
-    .r-tag.blue { border-color: #38bdf8; color: #38bdf8; background: rgba(56,189,248,0.06); }
-    .r-tag.green { border-color: #34d399; color: #34d399; background: rgba(52,211,153,0.06); }
-    .r-tag.yellow { border-color: var(--yellow); color: #a07c00; background: rgba(255,233,74,0.1); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
@@ -1303,19 +869,9 @@
       .filters { padding: 10px 16px; }
       .legend { padding: 16px 20px; }
       .alert-banner { padding: 10px 16px; }
-      .disney-header { padding: 36px 20px 30px; }
-      .park-info-bar { padding: 16px 20px; }
-      .park-info-items { gap: 20px; }
-      .timetable-wrap { padding: 20px 16px; }
-      .disney-tips { padding: 0 16px 28px; }
-      .disney-notes { padding: 24px 20px; }
-      .disney-tab { font-size: 13px; padding: 14px 12px; }
-      .disney-tab .tab-sub { display: none; }
-      .timetable-grid { font-size: 10px; }
-      .sea-route { padding: 0 16px 28px; }
-      .route-time-col { width: 58px; }
-      .route-time { font-size: 12px; }
-      .route-step-head { font-size: 13px; }
+      .disney-link-section { padding: 36px 20px; }
+      .disney-link-inner { flex-direction: column; }
+      .disney-btn { min-width: unset; width: 100%; }
     }
   </style>
 </head>
@@ -1830,660 +1386,17 @@
   <div id="map"></div>
 </section>
 
-<!-- DISNEY SCHEDULE SECTION -->
-<section class="disney-section" id="disney-schedule">
-  <div class="disney-header">
-    <div class="disney-header-inner">
-      <div class="disney-header-tag">THEME PARK SCHEDULE</div>
-      <h2 class="disney-header-title">도쿄 디즈니리조트<br><em>시간표 가이드</em></h2>
-      <p class="disney-header-sub">東京ディズニーリゾート · 2026.05.11–15</p>
+<!-- DISNEY LINK SECTION -->
+<section class="disney-link-section">
+  <div class="disney-link-inner">
+    <div class="disney-link-text">
+      <div class="disney-link-tag">THEME PARK SCHEDULE</div>
+      <div class="disney-link-title">도쿄 디즈니리조트<em>시간표 가이드</em></div>
+      <p class="disney-link-desc">쇼 시간표 · 공략 포인트 · 디즈니씨 추천 동선<br>東京ディズニーリゾート · 2026.05.11–15</p>
     </div>
-  </div>
-
-  <!-- PARK SELECTOR TABS -->
-  <div class="disney-tabs">
-    <button class="disney-tab active" data-park="land" onclick="switchPark('land', this)">
-      <span class="tab-emoji">🏰</span>
-      <span>디즈니랜드</span>
-      <span class="tab-sub">スウィーツ・ポップ・ワールド</span>
-    </button>
-    <button class="disney-tab" data-park="sea" onclick="switchPark('sea', this)">
-      <span class="tab-emoji">⚓</span>
-      <span>디즈니씨</span>
-      <span class="tab-sub">25周年 スパークリング・ジュビリー</span>
-    </button>
-  </div>
-
-  <!-- DISNEY LAND PANEL -->
-  <div class="park-panel" id="panel-land">
-    <div class="park-info-bar" style="border-color:#34d399;">
-      <div class="park-info-items">
-        <div class="park-info-item">
-          <div class="park-info-label">개장 시간</div>
-          <div class="park-info-val" style="color:#34d399;">09:00 ~ 21:00</div>
-        </div>
-        <div class="park-info-item">
-          <div class="park-info-label">이벤트</div>
-          <div class="park-info-val">ヴァネロペの<br>スウィーツ・ポップ・ワールド</div>
-        </div>
-        <div class="park-info-item">
-          <div class="park-info-label">기간</div>
-          <div class="park-info-val">4/9 ~ 6/30</div>
-        </div>
-        <div class="park-info-item">
-          <div class="park-info-label">입장권</div>
-          <div class="park-info-val">¥7,900~¥10,900</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DAILY TIMETABLE: LAND -->
-    <div class="timetable-wrap">
-      <div class="timetable-title">
-        <span class="tt-icon" style="background:#34d399;">⏰</span>
-        일별 쇼·이벤트 시간표
-        <span class="tt-note">※ 공식 앱으로 당일 정확한 시간 반드시 확인</span>
-      </div>
-
-      <div class="timetable-grid" id="land-timetable">
-
-        <!-- TIME AXIS -->
-        <div class="time-axis">
-          <div class="axis-label">시간</div>
-          <div class="axis-slots">
-            <div class="axis-time">09:00</div>
-            <div class="axis-time">10:00</div>
-            <div class="axis-time">11:00</div>
-            <div class="axis-time">12:00</div>
-            <div class="axis-time">13:00</div>
-            <div class="axis-time">14:00</div>
-            <div class="axis-time">15:00</div>
-            <div class="axis-time">16:00</div>
-            <div class="axis-time">17:00</div>
-            <div class="axis-time">18:00</div>
-            <div class="axis-time">19:00</div>
-            <div class="axis-time">20:00</div>
-            <div class="axis-time">21:00</div>
-          </div>
-        </div>
-
-        <!-- DAY COLUMNS: 5/11~5/15 -->
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/11</span><span class="dcol-day">월</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;">
-              <div class="show-block-label" style="color:#34d399;">OPEN 09:00</div>
-            </div>
-            <div class="show-block land-show" style="top:180px;">
-              <div class="show-time">14:00</div>
-              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-show" style="top:300px;">
-              <div class="show-time">16:30</div>
-              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-night" style="top:420px;">
-              <div class="show-time">20:00</div>
-              <div class="show-name">나이트<br>엔터테인먼트</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/12</span><span class="dcol-day">화</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
-            <div class="show-block land-show" style="top:180px;">
-              <div class="show-time">14:00</div>
-              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-show" style="top:300px;">
-              <div class="show-time">16:30</div>
-              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-night" style="top:420px;">
-              <div class="show-time">20:00</div>
-              <div class="show-name">나이트<br>엔터테인먼트</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/13</span><span class="dcol-day">수</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
-            <div class="show-block land-show" style="top:180px;">
-              <div class="show-time">14:00</div>
-              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-show" style="top:300px;">
-              <div class="show-time">16:30</div>
-              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-night" style="top:420px;">
-              <div class="show-time">20:00</div>
-              <div class="show-name">나이트<br>엔터테인먼트</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/14</span><span class="dcol-day">목</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
-            <div class="show-block land-show" style="top:180px;">
-              <div class="show-time">14:00</div>
-              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-show" style="top:300px;">
-              <div class="show-time">16:30</div>
-              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-night" style="top:420px;">
-              <div class="show-time">20:00</div>
-              <div class="show-name">나이트<br>엔터테인먼트</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/15</span><span class="dcol-day">금</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
-            <div class="show-block land-show" style="top:180px;">
-              <div class="show-time">14:00</div>
-              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-show" style="top:300px;">
-              <div class="show-time">16:30</div>
-              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
-            </div>
-            <div class="show-block land-night" style="top:420px;">
-              <div class="show-time">20:00</div>
-              <div class="show-name">나이트<br>엔터테인먼트</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /timetable-wrap -->
-
-    <!-- LAND: KEY POINTS CARDS -->
-    <div class="disney-tips">
-      <div class="tips-title" style="color:#34d399;">🏰 디즈니랜드 공략 포인트</div>
-      <div class="tips-grid">
-
-        <div class="tip-card" style="border-color:#34d399;">
-          <div class="tip-icon">🎠</div>
-          <div class="tip-head">퍼레이드 — イッツ・ア・スウィーツフルタイム！</div>
-          <div class="tip-body">
-            바넬로페 & 사탕왕국 캐릭터들이 등장하는 신규 퍼레이드. 하루 <strong>2회 공연</strong>(약 14:00 / 16:30). 인기 구간은 월드바자·위니더푸 앞. 당일 앱에서 정확한 시간 확인 필수.
-          </div>
-          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">퍼레이드</div>
-        </div>
-
-        <div class="tip-card" style="border-color:#34d399;">
-          <div class="tip-icon">🍬</div>
-          <div class="tip-head">이벤트 한정 푸드·굿즈</div>
-          <div class="tip-body">
-            바넬로페 테마 디저트·음료 다수. 한정 굿즈는 오픈 직후 품절 가능성 높음. <strong>개장 전 30분</strong> 입장 줄 서기 권장. 푸드는 월드바자·판타지랜드 집중.
-          </div>
-          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">푸드&굿즈</div>
-        </div>
-
-        <div class="tip-card" style="border-color:#34d399;">
-          <div class="tip-icon">📱</div>
-          <div class="tip-head">디즈니 공식 앱 필수 기능</div>
-          <div class="tip-body">
-            <strong>DPA(디즈니 프리미어 액세스)</strong> — 빅선더·스페이스마운틴 등 유료 패스(¥1,500~2,000). <strong>스탠바イパス</strong> — 무료 시간 지정권, 오픈 직후 선점. 당일 쇼 시간표도 앱에서 확인.
-          </div>
-          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">앱 활용</div>
-        </div>
-
-        <div class="tip-card" style="border-color:#34d399;">
-          <div class="tip-icon">⏱️</div>
-          <div class="tip-head">추천 동선 (평일 기준)</div>
-          <div class="tip-body">
-            <strong>09:00</strong> 입장 → 빅선더·스페이스마운틴 스탠바이파스 즉시 취득 → <strong>11:00~13:00</strong> 이벤트 한정 굿즈 구매 → <strong>14:00</strong> 퍼레이드 관람 → 어트랙션 → <strong>16:30</strong> 퍼레이드 2회차 → <strong>20:00</strong> 나이트 쇼
-          </div>
-          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">동선</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /panel-land -->
-
-  <!-- DISNEY SEA PANEL -->
-  <div class="park-panel hidden" id="panel-sea">
-    <div class="park-info-bar" style="border-color:#38bdf8;">
-      <div class="park-info-items">
-        <div class="park-info-item">
-          <div class="park-info-label">개장 시간</div>
-          <div class="park-info-val" style="color:#38bdf8;">09:00 ~ 21:00</div>
-        </div>
-        <div class="park-info-item">
-          <div class="park-info-label">이벤트</div>
-          <div class="park-info-val">25周年<br>スパークリング・ジュビリー</div>
-        </div>
-        <div class="park-info-item">
-          <div class="park-info-label">기간</div>
-          <div class="park-info-val">4/15~2027/3/31</div>
-        </div>
-        <div class="park-info-item">
-          <div class="park-info-label">입장권</div>
-          <div class="park-info-val">¥7,900~¥10,900</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DAILY TIMETABLE: SEA -->
-    <div class="timetable-wrap">
-      <div class="timetable-title">
-        <span class="tt-icon" style="background:#38bdf8; color:#0a0a0f;">⏰</span>
-        일별 쇼·이벤트 시간표
-        <span class="tt-note">※ 공식 앱으로 당일 정확한 시간 반드시 확인</span>
-      </div>
-
-      <div class="timetable-grid" id="sea-timetable">
-
-        <div class="time-axis">
-          <div class="axis-label">시간</div>
-          <div class="axis-slots">
-            <div class="axis-time">09:00</div>
-            <div class="axis-time">10:00</div>
-            <div class="axis-time">11:00</div>
-            <div class="axis-time">12:00</div>
-            <div class="axis-time">13:00</div>
-            <div class="axis-time">14:00</div>
-            <div class="axis-time">15:00</div>
-            <div class="axis-time">16:00</div>
-            <div class="axis-time">17:00</div>
-            <div class="axis-time">18:00</div>
-            <div class="axis-time">19:00</div>
-            <div class="axis-time">20:00</div>
-            <div class="axis-time">21:00</div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/11</span><span class="dcol-day">월</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
-            <div class="show-block sea-show" style="top:120px;">
-              <div class="show-time">12:00</div>
-              <div class="show-name">스파클링<br>주빌리①</div>
-            </div>
-            <div class="show-block sea-show" style="top:240px;">
-              <div class="show-time">15:00</div>
-              <div class="show-name">스파클링<br>주빌리②</div>
-            </div>
-            <div class="show-block sea-night" style="top:400px;">
-              <div class="show-time">19:30</div>
-              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/12</span><span class="dcol-day">화</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
-            <div class="show-block sea-show" style="top:120px;">
-              <div class="show-time">12:00</div>
-              <div class="show-name">스파클링<br>주빌리①</div>
-            </div>
-            <div class="show-block sea-show" style="top:240px;">
-              <div class="show-time">15:00</div>
-              <div class="show-name">스파클링<br>주빌리②</div>
-            </div>
-            <div class="show-block sea-night" style="top:400px;">
-              <div class="show-time">19:30</div>
-              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/13</span><span class="dcol-day">수</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
-            <div class="show-block sea-show" style="top:120px;">
-              <div class="show-time">12:00</div>
-              <div class="show-name">스파클링<br>주빌리①</div>
-            </div>
-            <div class="show-block sea-show" style="top:240px;">
-              <div class="show-time">15:00</div>
-              <div class="show-name">스파클링<br>주빌리②</div>
-            </div>
-            <div class="show-block sea-night" style="top:400px;">
-              <div class="show-time">19:30</div>
-              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/14</span><span class="dcol-day">목</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
-            <div class="show-block sea-show" style="top:120px;">
-              <div class="show-time">12:00</div>
-              <div class="show-name">스파클링<br>주빌리①</div>
-            </div>
-            <div class="show-block sea-show" style="top:240px;">
-              <div class="show-time">15:00</div>
-              <div class="show-name">스파클링<br>주빌리②</div>
-            </div>
-            <div class="show-block sea-night" style="top:400px;">
-              <div class="show-time">19:30</div>
-              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="day-col">
-          <div class="day-col-header"><span class="dcol-date">5/15</span><span class="dcol-day">금</span></div>
-          <div class="day-col-body">
-            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
-            <div class="show-block sea-show" style="top:120px;">
-              <div class="show-time">12:00</div>
-              <div class="show-name">스파클링<br>주빌리①</div>
-            </div>
-            <div class="show-block sea-show" style="top:240px;">
-              <div class="show-time">15:00</div>
-              <div class="show-name">스파클링<br>주빌리②</div>
-            </div>
-            <div class="show-block sea-night" style="top:400px;">
-              <div class="show-time">19:30</div>
-              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /timetable-wrap -->
-
-    <!-- SEA: KEY POINTS CARDS -->
-    <div class="disney-tips">
-      <div class="tips-title" style="color:#38bdf8;">⚓ 디즈니씨 공략 포인트</div>
-      <div class="tips-grid">
-
-        <div class="tip-card" style="border-color:#38bdf8;">
-          <div class="tip-icon">✨</div>
-          <div class="tip-head">스파클링 주빌리 셀레브레이션</div>
-          <div class="tip-body">
-            지중해 항구(メディテラニアンハーバー) 수면 위에서 펼쳐지는 25주년 주간 공연. 미키·미니 등 캐릭터 등장. <strong>하루 2~3회 공연</strong>. 관람 최적 위치는 분수광장 정면·까르네발로 레스토랑 앞. DPA 없이 무료 관람 가능.
-          </div>
-          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">25주년 쇼</div>
-        </div>
-
-        <div class="tip-card" style="border-color:#38bdf8;">
-          <div class="tip-icon">🍷</div>
-          <div class="tip-head">Food &amp; Wine Festival (4/9~6/30)</div>
-          <div class="tip-body">
-            각 테마포트마다 한정 음식·음료 부스 운영. 이탈리안 · 아메리카 · 아라비안 · 로스트리버 등 7개 포트별 특색 메뉴. <strong>12:00 전후 혼잡</strong>하므로 오픈 직후 또는 14:00 이후 방문 추천.
-          </div>
-          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">음식축제</div>
-        </div>
-
-        <div class="tip-card" style="border-color:#38bdf8;">
-          <div class="tip-icon">🎭</div>
-          <div class="tip-head">Fantasmic! 나이트쇼</div>
-          <div class="tip-body">
-            지중해 항구에서 밤마다 펼쳐지는 대규모 불·물·프로젝션 쇼. 매일 개최는 아님 — <strong>공식 앱에서 당일 개최 여부 확인 필수</strong>. DPA(유료) 또는 일반 무료 관람석(선착순 대기) 선택 가능.
-          </div>
-          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">나이트쇼</div>
-        </div>
-
-        <div class="tip-card" style="border-color:#38bdf8;">
-          <div class="tip-icon">⏱️</div>
-          <div class="tip-head">추천 동선 (평일 기준)</div>
-          <div class="tip-body">
-            아래 상세 동선 참고 — 소어링 제외, 판타지 스프링스·인디존스 중심 루트
-          </div>
-          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">동선</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SEA DETAILED ROUTE -->
-    <div class="sea-route">
-      <div class="sea-route-header">
-        <span class="route-icon">🗺️</span>
-        <div>
-          <div class="route-title">디즈니씨 추천 동선</div>
-          <div class="route-sub">소어링 제외 · 판타지 스프링스 + 인디존스 중심 · 평일 기준</div>
-        </div>
-      </div>
-
-      <div class="route-timeline">
-
-        <div class="route-step opening">
-          <div class="route-time-col">
-            <div class="route-time">09:00</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">입장 &amp; 즉시 DPA 구매</div>
-            <div class="route-step-body">
-              게이트 통과 직후 앱 실행 → <strong>인디아나 존스 어드벤처 DPA</strong>(¥1,500~2,000) 즉시 구매.
-              <br>그 다음 <strong>판타지 스프링스(Fantasy Springs)</strong> 스탠바이파스도 바로 취득 (프로즌 에버 애프터 또는 피터팬 우선).
-            </div>
-            <div class="route-tags">
-              <span class="r-tag blue">DPA 구매</span>
-              <span class="r-tag blue">스탠바이파스 취득</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">09:20</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">판타지 스프링스 — <span style="color:#38bdf8;">프로즌 에버 애프터</span></div>
-            <div class="route-step-body">
-              오픈 직후가 가장 짧은 대기. 엘사·안나의 아렌델 왕국을 보트로 여행하는 라이드.
-              스탠바이파스 시간이 됐다면 바로 탑승.
-              <br><span class="route-warn">⚠️ 스탠바이파스 없으면 오픈 직후에도 60~90분 대기 발생</span>
-            </div>
-            <div class="route-tags">
-              <span class="r-tag green">판타지 스프링스</span>
-              <span class="r-tag">약 45분</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">10:15</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">판타지 스프링스 — <span style="color:#38bdf8;">피터팬의 네버랜드 어드벤처</span></div>
-            <div class="route-step-body">
-              판타지 스프링스 안에 있으므로 이동 최소. 인기 라이드 2개를 한 지역에서 연속 탑승.
-              라푼젤 랜턴 페스티벌도 여유 있으면 추가.
-            </div>
-            <div class="route-tags">
-              <span class="r-tag green">판타지 스프링스</span>
-              <span class="r-tag">약 40분</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">11:10</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">타워 오브 테러 → 토이스토리 마니아</div>
-            <div class="route-step-body">
-              아메리칸 워터프론트 구역으로 이동. <strong>타워 오브 테러</strong>는 오전 중 대기가 상대적으로 짧음.
-              바로 옆 <strong>토이스토리 마니아</strong>도 연달아 탑승. 두 어트랙션 모두 스탠바이파스 대상이므로 앱 확인.
-            </div>
-            <div class="route-tags">
-              <span class="r-tag">아메리칸 워터프론트</span>
-              <span class="r-tag">약 60분</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step food">
-          <div class="route-time-col">
-            <div class="route-time">12:15</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">Food &amp; Wine Festival 런치 탐방</div>
-            <div class="route-step-body">
-              지중해 항구 주변 부스 먼저 → 로스트리버 델타 쪽으로 이동하며 간식 탐방.
-              <strong>12:00 스파클링 주빌리 1회차</strong>를 밥 먹으면서 자연스럽게 관람 가능 (항구 광장 근처 식사 추천).
-            </div>
-            <div class="route-tags">
-              <span class="r-tag yellow">F&amp;W 페스티벌</span>
-              <span class="r-tag blue">스파클링 주빌리 1회차 관람</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">13:30</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">인디아나 존스 어드벤처 (DPA 시간대)</div>
-            <div class="route-step-body">
-              오전에 구매한 DPA 시간대에 맞춰 로스트리버 델타로 이동. 대기 없이 탑승.
-              근처 <strong>레이징 스피리츠</strong>도 여유 있으면 추가 (스탠바이파스 확인).
-            </div>
-            <div class="route-tags">
-              <span class="r-tag">로스트리버 델타</span>
-              <span class="r-tag blue">DPA 사용</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">14:30</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">아라비안 코스트 — 신드바드 스토리북 보야지</div>
-            <div class="route-step-body">
-              대기 짧고 내부가 아름다움. 25주년 특별 영상 연출 여부 앱 확인.
-              마법의 램프 극장도 시간 맞으면 체크.
-            </div>
-            <div class="route-tags">
-              <span class="r-tag">아라비안 코스트</span>
-              <span class="r-tag">여유 탑승</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">15:00</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">스파클링 주빌리 셀레브레이션 2회차 관람</div>
-            <div class="route-step-body">
-              지중해 항구 광장 정면 확보. 2회차는 조명이 더 화려하게 보임.
-              <strong>14:45</strong>까지 관람 좋은 자리 선점 권장. 공연 후 굿즈숍 들리기.
-            </div>
-            <div class="route-tags">
-              <span class="r-tag blue">스파클링 주빌리 2회차</span>
-              <span class="r-tag">약 20분</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step">
-          <div class="route-time-col">
-            <div class="route-time">15:30</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">25주년 한정 굿즈 &amp; 저녁 전 여유 어트랙션</div>
-            <div class="route-step-body">
-              메디테라니언 하버 주변 기념품 쇼핑. 미처 못 탄 어트랙션 재도전 (대기 시간 앱으로 확인).
-              저녁식사는 <strong>17:00~18:00</strong> 사이 레스토랑 예약 또는 F&amp;W 부스 이용.
-            </div>
-            <div class="route-tags">
-              <span class="r-tag yellow">25주년 굿즈</span>
-              <span class="r-tag">자유 시간</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step night">
-          <div class="route-time-col">
-            <div class="route-time">19:00</div>
-            <div class="route-vline"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">Fantasmic! 관람 자리 선점</div>
-            <div class="route-step-body">
-              개최 당일 19:30 공연이면 최소 <strong>30분 전</strong> 지중해 항구 광장 자리 잡기.
-              DPA(유료) 구매 시 지정석 이용 가능. 불·물·프로젝션이 어우러지는 씨의 하이라이트.
-              <br><span class="route-warn">⚠️ 날씨에 따라 당일 취소 가능 — 앱으로 반드시 확인</span>
-            </div>
-            <div class="route-tags">
-              <span class="r-tag blue">Fantasmic!</span>
-              <span class="r-tag">약 30분</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-step closing">
-          <div class="route-time-col">
-            <div class="route-time">20:30</div>
-            <div class="route-vline last"></div>
-          </div>
-          <div class="route-content">
-            <div class="route-step-head">파크 클로징 전 마지막 쇼핑 &amp; 퇴장</div>
-            <div class="route-step-body">
-              폐장(21:00) 30분 전 입구 방향 이동. 월드바자 같은 대형 쇼핑몰은 폐장 후에도 잠깐 운영.
-              마이하마역 혼잡 피하려면 <strong>20:40~20:50</strong> 사이 나오는 것 추천.
-            </div>
-            <div class="route-tags">
-              <span class="r-tag">쇼핑</span>
-              <span class="r-tag">퇴장</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /route-timeline -->
-    </div><!-- /sea-route -->
-
-  </div><!-- /panel-sea -->
-
-  <!-- COMMON NOTES -->
-  <div class="disney-notes">
-    <div class="notes-inner">
-      <div class="note-block">
-        <div class="note-head">🚆 교통</div>
-        <div class="note-body">JR 게이요선 마이하마(舞浜)역 하차. 랜드까지 도보 2분 / 씨는 리조트라인(모노레일) 이용 약 5~10분. IC 카드(Suica·PASMO) 사용 가능.</div>
-      </div>
-      <div class="note-block">
-        <div class="note-head">📅 예약</div>
-        <div class="note-body">티켓은 공식 사이트에서 날짜 지정 구매. 당일권은 현장에서 구매 불가(매진 시). <strong>가능한 한 사전 온라인 구매 필수.</strong></div>
-      </div>
-      <div class="note-block">
-        <div class="note-head">⚠️ 주의</div>
-        <div class="note-body">표기된 쇼 시간은 <strong>일반적인 기준</strong>이며, 날씨·운영 상황에 따라 변경·취소될 수 있습니다. 방문 당일 도쿄 디즈니 공식 앱에서 최신 정보를 반드시 확인하세요.</div>
-      </div>
-      <div class="note-block">
-        <div class="note-head">💡 꿀팁</div>
-        <div class="note-body">두 파크 모두 방문 계획이라면 <strong>파크 호핑 옵션권</strong>(+¥2,200) 추가 구매 시 15:00 이후 타 파크로 이동 가능. 랜드 → 씨 순서 추천.</div>
-      </div>
+    <div class="disney-link-btns">
+      <a class="disney-btn land" href="disney.html#panel-land">🏰 디즈니랜드 시간표 →</a>
+      <a class="disney-btn sea" href="disney.html#panel-sea">⚓ 디즈니씨 시간표 →</a>
     </div>
   </div>
 
@@ -2684,14 +1597,6 @@
       .addTo(map)
       .bindPopup(popup(e.cat, e.catColor, e.title, e.sub, e.date, e.url, e.label), { maxWidth: 260 });
   });
-
-  // Disney park tab switcher
-  function switchPark(park, btn) {
-    document.querySelectorAll('.disney-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.park-panel').forEach(p => p.classList.add('hidden'));
-    document.getElementById('panel-' + park).classList.remove('hidden');
-  }
 
   // Stagger card animations on load
   document.querySelectorAll('.event-card').forEach((card, i) => {
