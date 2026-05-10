@@ -1,0 +1,2702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>도쿄 만화·애니 이벤트 가이드 — 2026.05.11–15</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --ink: #0a0a0f;
+      --paper: #f5f0e8;
+      --pink: #ff3d78;
+      --yellow: #ffe94a;
+      --cyan: #00e8d4;
+      --panel-border: 3px solid #0a0a0f;
+      --shadow: 5px 5px 0px #0a0a0f;
+      --shadow-lg: 8px 8px 0px #0a0a0f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Sans KR', sans-serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── HALFTONE BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #0a0a0f18 1px, transparent 1px);
+      background-size: 18px 18px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── SPEED LINES HERO ── */
+    .hero {
+      position: relative;
+      background: var(--ink);
+      overflow: hidden;
+      padding: 60px 40px 50px;
+      border-bottom: var(--panel-border);
+      z-index: 1;
+    }
+
+    .speed-lines {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-conic-gradient(
+          from 0deg at 50% 110%,
+          transparent 0deg,
+          transparent 5.5deg,
+          rgba(255,255,255,0.03) 5.5deg,
+          rgba(255,255,255,0.03) 6deg
+        );
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--pink);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      padding: 4px 14px;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--pink);
+      margin-bottom: 20px;
+      animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .hero-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(42px, 8vw, 96px);
+      color: var(--yellow);
+      line-height: 0.92;
+      letter-spacing: -1px;
+      text-shadow: 5px 5px 0 var(--pink), 10px 10px 0 rgba(255,61,120,0.3);
+      animation: slide-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+    }
+
+    .hero-title em {
+      color: var(--paper);
+      font-style: normal;
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      color: rgba(245,240,232,0.55);
+      margin-top: 16px;
+      letter-spacing: 2px;
+      animation: slide-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+    }
+
+    .hero-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      animation: slide-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+    }
+
+    .date-chip {
+      background: var(--yellow);
+      color: var(--ink);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      padding: 6px 18px;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .date-arrow {
+      color: var(--cyan);
+      font-size: 20px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filters {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      border-bottom: var(--panel-border);
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: rgba(245,240,232,0.4);
+    }
+
+    .filter-btn {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 16px;
+      border: 2px solid rgba(245,240,232,0.2);
+      background: transparent;
+      color: rgba(245,240,232,0.6);
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 1px;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      background: rgba(255,233,74,0.08);
+      box-shadow: 3px 3px 0 var(--yellow);
+      transform: translate(-1px, -1px);
+    }
+
+    .filter-btn[data-cat="콜라보카페"].active { border-color: var(--pink); color: var(--pink); box-shadow: 3px 3px 0 var(--pink); background: rgba(255,61,120,0.08); }
+    .filter-btn[data-cat="전시회"].active { border-color: var(--cyan); color: var(--cyan); box-shadow: 3px 3px 0 var(--cyan); background: rgba(0,232,212,0.08); }
+    .filter-btn[data-cat="라이브"].active { border-color: #a78bfa; color: #a78bfa; box-shadow: 3px 3px 0 #a78bfa; background: rgba(167,139,250,0.08); }
+    .filter-btn[data-cat="테마파크"].active { border-color: #34d399; color: #34d399; box-shadow: 3px 3px 0 #34d399; background: rgba(52,211,153,0.08); }
+
+    /* ── MAIN GRID ── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 28px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-header h2 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 28px;
+      color: var(--ink);
+    }
+
+    .count-badge {
+      background: var(--ink);
+      color: var(--yellow);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      padding: 3px 10px;
+      border-radius: 0;
+    }
+
+    /* ── EVENT CARDS ── */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0;
+    }
+
+    .event-card {
+      border: var(--panel-border);
+      margin: -1.5px;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+      animation: card-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .event-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-lg);
+      z-index: 10;
+    }
+
+    .event-card.hidden {
+      display: none;
+    }
+
+    .card-accent {
+      height: 6px;
+      width: 100%;
+    }
+
+    .card-accent.콜라보카페 { background: var(--pink); }
+    .card-accent.전시회 { background: var(--cyan); }
+    .card-accent.라이브 { background: #a78bfa; }
+
+    .card-body {
+      padding: 22px 22px 18px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .cat-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 3px 10px;
+      border: 1.5px solid currentColor;
+    }
+
+    .cat-tag.콜라보카페 { color: var(--pink); }
+    .cat-tag.전시회 { color: var(--cyan); }
+    .cat-tag.라이브 { color: #a78bfa; }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot.ending { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+    .status-dot.starting { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
+    }
+
+    .card-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .card-title-ko {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 13px;
+      color: rgba(10,10,15,0.5);
+      margin-bottom: 14px;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: rgba(10,10,15,0.7);
+      margin-bottom: 16px;
+    }
+
+    /* ── TIMELINE BAR ── */
+    .timeline {
+      border-top: 1.5px solid rgba(10,10,15,0.12);
+      padding-top: 14px;
+      margin-top: 4px;
+    }
+
+    .timeline-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(10,10,15,0.4);
+      margin-bottom: 8px;
+    }
+
+    .timeline-bar-wrap {
+      display: flex;
+      gap: 3px;
+    }
+
+    .day-slot {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .day-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(10,10,15,0.1);
+      border-radius: 0;
+    }
+
+    .day-bar.active.콜라보카페 { background: var(--pink); }
+    .day-bar.active.전시회 { background: var(--cyan); }
+    .day-bar.active.라이브 { background: #a78bfa; }
+
+    .day-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      color: rgba(10,10,15,0.4);
+    }
+
+    /* ── LOCATION & INFO STRIP ── */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      background: rgba(10,10,15,0.04);
+      border-top: 1.5px solid rgba(10,10,15,0.08);
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(10,10,15,0.65);
+    }
+
+    .location-icon {
+      font-size: 14px;
+    }
+
+    .price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: rgba(10,10,15,0.4);
+    }
+
+    /* ── DECORATIVE PANEL NUMBERS ── */
+    .panel-number {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      color: rgba(10,10,15,0.04);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── ALERT BANNER ── */
+    .alert-banner {
+      background: var(--ink);
+      color: var(--yellow);
+      padding: 12px 40px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      border-bottom: var(--panel-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .marquee-text {
+      display: flex;
+      gap: 60px;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 20px 40px;
+      border-bottom: var(--panel-border);
+      background: rgba(10,10,15,0.02);
+      position: relative;
+      z-index: 1;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(10,10,15,0.6);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      display: none;
+      grid-column: 1 / -1;
+    }
+
+    .empty-state.visible { display: block; }
+
+    .empty-icon { font-size: 64px; margin-bottom: 16px; }
+    .empty-text { font-family: 'Black Han Sans', sans-serif; font-size: 24px; color: rgba(10,10,15,0.3); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes pop-in {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes slide-up {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes card-in {
+      from { transform: translateY(20px) scale(0.96); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--ink);
+      border-top: var(--panel-border);
+      padding: 32px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 18px;
+      color: var(--yellow);
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: rgba(245,240,232,0.3);
+      line-height: 1.6;
+    }
+
+    .footer-sources {
+      font-size: 11px;
+      color: rgba(245,240,232,0.25);
+    }
+
+    .footer-sources a {
+      color: var(--cyan);
+      text-decoration: none;
+      margin-right: 12px;
+    }
+
+    .footer-sources a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── RESERVE BUTTON ── */
+    .reserve-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 7px 14px;
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 10px;
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .reserve-btn:hover {
+      background: var(--yellow);
+      color: var(--ink);
+      border-color: var(--ink);
+      box-shadow: 3px 3px 0 rgba(10,10,15,0.3);
+      transform: translate(-2px, -2px);
+    }
+
+    .reserve-btn.pink:hover { background: var(--pink); color: #fff; }
+    .reserve-btn.cyan:hover { background: var(--cyan); color: var(--ink); }
+    .reserve-btn.purple:hover { background: #a78bfa; color: #fff; }
+
+    /* ── MISSED IT BOX ── */
+    .missed-section {
+      grid-column: 1 / -1;
+      border: 2px dashed rgba(10,10,15,0.2);
+      padding: 24px 28px;
+      margin-top: 8px;
+      background: rgba(10,10,15,0.02);
+    }
+
+    .missed-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 14px;
+      color: rgba(10,10,15,0.4);
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .missed-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .missed-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(10,10,15,0.45);
+      background: rgba(10,10,15,0.05);
+      padding: 8px 14px;
+      border: 1px solid rgba(10,10,15,0.1);
+    }
+
+    .missed-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      padding: 2px 7px;
+      background: rgba(10,10,15,0.12);
+      letter-spacing: 1px;
+    }
+
+    /* ── MAP SECTION ── */
+    .map-section {
+      position: relative;
+      z-index: 1;
+      border-top: var(--panel-border);
+      border-bottom: var(--panel-border);
+    }
+
+    .map-header {
+      background: var(--ink);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .map-header h2 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 22px;
+      color: var(--yellow);
+    }
+
+    .map-legend {
+      display: flex;
+      gap: 20px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .map-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      color: rgba(245,240,232,0.5);
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .map-legend-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid #0a0a0f;
+      flex-shrink: 0;
+    }
+
+    #map {
+      width: 100%;
+      height: 480px;
+    }
+
+    /* Custom marker styles */
+    .map-marker {
+      width: 32px;
+      height: 32px;
+      border: 2.5px solid #0a0a0f;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .map-marker-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50% 50% 50% 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 0 !important;
+      border: 2.5px solid #0a0a0f !important;
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.2) !important;
+      padding: 0 !important;
+    }
+
+    .leaflet-popup-content {
+      margin: 0 !important;
+      min-width: 220px;
+    }
+
+    .leaflet-popup-tip-container { display: none; }
+
+    .map-popup {
+      padding: 14px 16px;
+    }
+
+    .map-popup-cat {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+    }
+
+    .map-popup-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      color: #0a0a0f;
+    }
+
+    .map-popup-sub {
+      font-size: 11px;
+      color: rgba(10,10,15,0.55);
+      margin-bottom: 8px;
+    }
+
+    .map-popup-date {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: rgba(10,10,15,0.4);
+    }
+
+    .map-popup-link {
+      display: block;
+      margin-top: 10px;
+      padding: 6px 10px;
+      background: #0a0a0f;
+      color: #ffe94a;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .map-popup-link:hover { background: #ffe94a; color: #0a0a0f; }
+
+    /* ── DISNEY SCHEDULE SECTION ── */
+    .disney-section {
+      position: relative;
+      z-index: 1;
+      border-top: var(--panel-border);
+    }
+
+    .disney-header {
+      background: var(--ink);
+      padding: 50px 40px 44px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .disney-header::before {
+      content: '🏰⚓';
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 120px;
+      opacity: 0.06;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .disney-header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .disney-header-tag {
+      display: inline-block;
+      background: linear-gradient(90deg, #34d399, #38bdf8);
+      color: var(--ink);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      padding: 4px 14px;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 #34d399;
+      margin-bottom: 18px;
+    }
+
+    .disney-header-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(32px, 5vw, 64px);
+      color: var(--yellow);
+      line-height: 0.95;
+      text-shadow: 4px 4px 0 #34d399, 8px 8px 0 rgba(52,211,153,0.25);
+    }
+
+    .disney-header-title em {
+      color: var(--paper);
+      font-style: normal;
+      display: block;
+    }
+
+    .disney-header-sub {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: rgba(245,240,232,0.45);
+      margin-top: 14px;
+      letter-spacing: 2px;
+    }
+
+    /* TABS */
+    .disney-tabs {
+      display: flex;
+      border-bottom: var(--panel-border);
+      background: var(--paper);
+    }
+
+    .disney-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 18px 20px;
+      border: none;
+      border-right: var(--panel-border);
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: rgba(10,10,15,0.4);
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .disney-tab:last-child { border-right: none; }
+
+    .disney-tab .tab-emoji { font-size: 28px; }
+    .disney-tab .tab-sub {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px;
+      color: rgba(10,10,15,0.35);
+      letter-spacing: 1px;
+    }
+
+    .disney-tab.active {
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .disney-tab[data-park="land"].active {
+      box-shadow: inset 0 -4px 0 #34d399;
+    }
+
+    .disney-tab[data-park="sea"].active {
+      box-shadow: inset 0 -4px 0 #38bdf8;
+    }
+
+    .disney-tab:hover:not(.active) {
+      background: rgba(10,10,15,0.03);
+    }
+
+    /* PARK PANEL */
+    .park-panel { display: block; }
+    .park-panel.hidden { display: none; }
+
+    /* INFO BAR */
+    .park-info-bar {
+      border-bottom: var(--panel-border);
+      border-left: 8px solid;
+      padding: 20px 40px;
+      background: rgba(10,10,15,0.02);
+    }
+
+    .park-info-items {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .park-info-item {}
+    .park-info-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(10,10,15,0.4);
+      margin-bottom: 4px;
+    }
+
+    .park-info-val {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    /* TIMETABLE */
+    .timetable-wrap {
+      padding: 32px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .timetable-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 18px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .tt-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      border: 2px solid var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+      flex-shrink: 0;
+    }
+
+    .tt-note {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(10,10,15,0.45);
+      margin-left: auto;
+    }
+
+    .timetable-grid {
+      display: flex;
+      gap: 0;
+      border: var(--panel-border);
+      overflow-x: auto;
+    }
+
+    .time-axis {
+      flex-shrink: 0;
+      width: 56px;
+      border-right: var(--panel-border);
+    }
+
+    .axis-label {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: rgba(10,10,15,0.3);
+      border-bottom: 1.5px solid rgba(10,10,15,0.1);
+      background: rgba(10,10,15,0.03);
+    }
+
+    .axis-slots {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .axis-time {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: rgba(10,10,15,0.4);
+      border-bottom: 1px solid rgba(10,10,15,0.07);
+    }
+
+    .day-col {
+      flex: 1;
+      min-width: 110px;
+      border-right: 1.5px solid rgba(10,10,15,0.1);
+    }
+
+    .day-col:last-child { border-right: none; }
+
+    .day-col-header {
+      height: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-bottom: var(--panel-border);
+      background: var(--ink);
+      gap: 2px;
+    }
+
+    .dcol-date {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .dcol-day {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px;
+      color: rgba(245,240,232,0.4);
+    }
+
+    .day-col-body {
+      position: relative;
+      height: 520px; /* 13 slots × 40px */
+    }
+
+    .show-block {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      border-radius: 0;
+      padding: 5px 6px;
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    .land-show {
+      height: 72px;
+      background: rgba(52,211,153,0.18);
+      border: 1.5px solid #34d399;
+      border-left: 3px solid #34d399;
+    }
+
+    .land-night {
+      height: 60px;
+      background: rgba(52,211,153,0.08);
+      border: 1.5px dashed #34d399;
+      border-left: 3px solid #34d399aa;
+    }
+
+    .sea-show {
+      height: 72px;
+      background: rgba(56,189,248,0.18);
+      border: 1.5px solid #38bdf8;
+      border-left: 3px solid #38bdf8;
+    }
+
+    .sea-night {
+      height: 72px;
+      background: rgba(56,189,248,0.08);
+      border: 1.5px dashed #38bdf8;
+      border-left: 3px solid #38bdf8aa;
+    }
+
+    .show-time {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: rgba(10,10,15,0.7);
+      margin-bottom: 2px;
+    }
+
+    .show-name {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: rgba(10,10,15,0.8);
+      line-height: 1.3;
+    }
+
+    /* TIP CARDS */
+    .disney-tips {
+      padding: 0 40px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tips-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0;
+    }
+
+    .tip-card {
+      border: var(--panel-border);
+      margin: -1.5px;
+      padding: 20px 20px 16px;
+      background: var(--paper);
+      position: relative;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+    }
+
+    .tip-card:hover {
+      transform: translate(-3px,-3px);
+      box-shadow: var(--shadow);
+      z-index: 5;
+    }
+
+    .tip-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .tip-head {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .tip-body {
+      font-size: 11.5px;
+      line-height: 1.75;
+      color: rgba(10,10,15,0.65);
+      margin-bottom: 12px;
+    }
+
+    .tip-tag {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      padding: 3px 10px;
+    }
+
+    /* NOTES */
+    .disney-notes {
+      border-top: var(--panel-border);
+      background: var(--ink);
+      padding: 28px 40px;
+    }
+
+    .notes-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .note-block {}
+
+    .note-head {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 14px;
+      color: var(--yellow);
+      margin-bottom: 8px;
+    }
+
+    .note-body {
+      font-size: 11.5px;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.55);
+    }
+
+    /* ── SEA DETAILED ROUTE ── */
+    .sea-route {
+      padding: 0 40px 40px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .sea-route-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 0 20px;
+      border-bottom: var(--panel-border);
+      margin-bottom: 32px;
+    }
+
+    .route-icon { font-size: 36px; }
+
+    .route-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 22px;
+      color: var(--ink);
+    }
+
+    .route-sub {
+      font-size: 12px;
+      color: rgba(10,10,15,0.45);
+      margin-top: 4px;
+      font-family: 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .route-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .route-step {
+      display: flex;
+      gap: 0;
+      position: relative;
+    }
+
+    .route-time-col {
+      flex-shrink: 0;
+      width: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .route-time {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 1px;
+      color: #38bdf8;
+      background: var(--ink);
+      padding: 4px 8px;
+      border: 2px solid #38bdf8;
+      box-shadow: 2px 2px 0 #38bdf8;
+      white-space: nowrap;
+      z-index: 1;
+      position: relative;
+    }
+
+    .route-step.opening .route-time { color: #34d399; border-color: #34d399; box-shadow: 2px 2px 0 #34d399; }
+    .route-step.food .route-time { color: var(--yellow); border-color: var(--yellow); box-shadow: 2px 2px 0 var(--yellow); }
+    .route-step.night .route-time { color: #a78bfa; border-color: #a78bfa; box-shadow: 2px 2px 0 #a78bfa; }
+    .route-step.closing .route-time { color: rgba(245,240,232,0.5); border-color: rgba(245,240,232,0.2); box-shadow: none; background: rgba(10,10,15,0.5); }
+
+    .route-vline {
+      width: 2px;
+      flex: 1;
+      background: rgba(56,189,248,0.3);
+      min-height: 24px;
+    }
+
+    .route-vline.last { background: transparent; }
+
+    .route-content {
+      flex: 1;
+      padding: 0 0 28px 20px;
+      border-left: none;
+    }
+
+    .route-step-head {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      color: var(--ink);
+      margin-bottom: 8px;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .route-step-body {
+      font-size: 12.5px;
+      line-height: 1.8;
+      color: rgba(10,10,15,0.68);
+      margin-bottom: 10px;
+    }
+
+    .route-warn {
+      display: inline-block;
+      color: var(--pink);
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .route-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .r-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      padding: 3px 10px;
+      border: 1.5px solid rgba(10,10,15,0.2);
+      color: rgba(10,10,15,0.5);
+      background: rgba(10,10,15,0.04);
+    }
+
+    .r-tag.blue { border-color: #38bdf8; color: #38bdf8; background: rgba(56,189,248,0.06); }
+    .r-tag.green { border-color: #34d399; color: #34d399; background: rgba(52,211,153,0.06); }
+    .r-tag.yellow { border-color: var(--yellow); color: #a07c00; background: rgba(255,233,74,0.1); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 20px 36px; }
+      .main { padding: 32px 16px 60px; }
+      .filters { padding: 10px 16px; }
+      .legend { padding: 16px 20px; }
+      .alert-banner { padding: 10px 16px; }
+      .disney-header { padding: 36px 20px 30px; }
+      .park-info-bar { padding: 16px 20px; }
+      .park-info-items { gap: 20px; }
+      .timetable-wrap { padding: 20px 16px; }
+      .disney-tips { padding: 0 16px 28px; }
+      .disney-notes { padding: 24px 20px; }
+      .disney-tab { font-size: 13px; padding: 14px 12px; }
+      .disney-tab .tab-sub { display: none; }
+      .timetable-grid { font-size: 10px; }
+      .sea-route { padding: 0 16px 28px; }
+      .route-time-col { width: 58px; }
+      .route-time { font-size: 12px; }
+      .route-step-head { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ALERT TICKER -->
+<div class="alert-banner">
+  <div class="marquee-text" id="marquee">
+    <span>⚡ 2026.05.11–15 도쿄 만화·애니 이벤트 완전 가이드</span>
+    <span>🌸 콜라보카페 예약 필수 확인</span>
+    <span>🎌 일부 이벤트는 복권 추첨 입장</span>
+    <span>📍 池袋 · 渋谷 · 東京ソラマチ · 幕張メッセ</span>
+    <span>⚡ 2026.05.11–15 도쿄 만화·애니 이벤트 완전 가이드</span>
+    <span>🌸 콜라보카페 예약 필수 확인</span>
+    <span>🎌 일부 이벤트는 복권 추첨 입장</span>
+    <span>📍 池袋 · 渋谷 · 東京ソラマチ · 幕張メッセ</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="speed-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">TOKYO EVENT GUIDE 2026</div>
+    <h1 class="hero-title">
+      도쿄 만화·애니
+      <em>이벤트 가이드</em>
+    </h1>
+    <p class="hero-subtitle">東京マンガ・アニメイベント情報まとめ</p>
+    <div class="hero-date">
+      <span class="date-chip">MAY 11</span>
+      <span class="date-arrow">→</span>
+      <span class="date-chip">MAY 15</span>
+      <span class="date-chip" style="background: var(--pink); box-shadow: 3px 3px 0 var(--ink);">2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- STATUS LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#22c55e; box-shadow:0 0 6px #22c55e;"></div> 진행 중
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--yellow); box-shadow:0 0 6px var(--yellow);"></div> 곧 마감 (여행 기간 내 종료)
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--cyan); box-shadow:0 0 6px var(--cyan);"></div> 여행 기간 중 오픈
+  </div>
+  <div class="legend-item" style="margin-left:auto; font-size:12px; color:rgba(10,10,15,0.5);">
+    ※ 타임라인 바 = 5/11 ~ 5/15 운영 여부
+  </div>
+</div>
+
+<!-- FILTERS -->
+<nav class="filters">
+  <span class="filter-label">FILTER</span>
+  <button class="filter-btn active" data-cat="전체" onclick="filterCards('전체', this)">전체</button>
+  <button class="filter-btn" data-cat="콜라보카페" onclick="filterCards('콜라보카페', this)">콜라보 카페</button>
+  <button class="filter-btn" data-cat="전시회" onclick="filterCards('전시회', this)">전시·원화전</button>
+  <button class="filter-btn" data-cat="캠페인" onclick="filterCards('캠페인', this)">캠페인·팝업</button>
+  <button class="filter-btn" data-cat="테마파크" onclick="filterCards('테마파크', this)">테마파크</button>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="section-header">
+    <h2>이벤트 목록</h2>
+    <span class="count-badge" id="count-badge">8</span>
+  </div>
+
+  <div class="events-grid" id="grid">
+
+    <!-- 1. 명탐정 코난 카페 -->
+    <article class="event-card" data-cat="콜라보카페">
+      <div class="card-accent 콜라보카페"></div>
+      <div class="card-body">
+        <div class="panel-number">01</div>
+        <div class="card-meta">
+          <span class="cat-tag 콜라보카페">콜라보카페</span>
+          <div class="status-dot ending" title="여행 기간 내 마감"></div>
+        </div>
+        <h3 class="card-title">名探偵コナンカフェ</h3>
+        <p class="card-title-ko">명탐정 코난 카페 (전기)</p>
+        <p class="card-desc">
+          신작 극장판 <strong>「隻眼の残像」</strong> 공개 기념 콜라보 카페. 전기 메뉴·굿즈는 5/17(일)까지만 운영되므로 반드시 이번 여행에서 방문!
+          BOX cafe&amp;space 3개 점포 동시 운영. 예약 추천.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn pink" href="https://conan-cafe.jp/" target="_blank">🔗 공식·예약 사이트 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>渋谷 / 池袋 / 東京ソラマチ</div>
+        <span class="price">~5/17</span>
+      </div>
+    </article>
+
+    <!-- 2. 桜蘭高校ホスト部 -->
+    <article class="event-card" data-cat="콜라보카페">
+      <div class="card-accent 콜라보카페"></div>
+      <div class="card-body">
+        <div class="panel-number">02</div>
+        <div class="card-meta">
+          <span class="cat-tag 콜라보카페">콜라보카페</span>
+          <div class="status-dot ending" title="여행 기간 내 마감"></div>
+        </div>
+        <h3 class="card-title">桜蘭高校ホスト部<br>コラボカフェ</h3>
+        <p class="card-title-ko">오란고교 호스트부 콜라보 카페</p>
+        <p class="card-desc">
+          하토리 비스코의 명작 순정만화 콜라보. 이케부쿠로 motto cafe에서 3월 6일부터 5월 17일까지 기간 한정 오픈. <strong style="color:var(--pink);">⚠️ 5/11(월)까지 휴업, 5/12(화)부터 재개.</strong> 코란의 화려한 세계관이 카페로 재현.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn pink" href="https://ouran-2nd.hakusensha-cafe.com/ikebukuro/" target="_blank">🔗 공식 사이트 →</a>
+        <a class="reserve-btn pink" href="https://app.collabocafe.tokyo/?cafeId=cda19f31-d1ab-474c-8487-192c5f5d3341" target="_blank" style="margin-top:6px;">📅 예약하기 (collabocafe.tokyo) →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋 · motto cafe</div>
+        <span class="price">~5/17</span>
+      </div>
+    </article>
+
+    <!-- 3. 블랙잭 콜라보카페 -->
+    <article class="event-card" data-cat="콜라보카페">
+      <div class="card-accent 콜라보카페"></div>
+      <div class="card-body">
+        <div class="panel-number">03</div>
+        <div class="card-meta">
+          <span class="cat-tag 콜라보카페">콜라보카페</span>
+          <div class="status-dot" title="운영 중"></div>
+        </div>
+        <h3 class="card-title">ブラック・ジャック<br>コラボカフェ</h3>
+        <p class="card-title-ko">블랙잭 콜라보 카페</p>
+        <p class="card-desc">
+          데즈카 오사무의 불멸의 명작 <strong>블랙잭</strong> 콜라보 카페. Collabo_Index가 주관하여 도쿄·오사카·나고야 동시 개최.
+          5월 25일까지 여유 있게 방문 가능.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn pink" href="https://collabo.sld-inc.com/blackjack" target="_blank">🔗 공식·예약 사이트 (池袋PARCO) →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋PARCO · Collabo_Index</div>
+        <span class="price">~5/18(도쿄)</span>
+      </div>
+    </article>
+
+    <!-- 4. 약사의 혼잣말 카페 -->
+    <article class="event-card" data-cat="콜라보카페">
+      <div class="card-accent 콜라보카페"></div>
+      <div class="card-body">
+        <div class="panel-number">04</div>
+        <div class="card-meta">
+          <span class="cat-tag 콜라보카페">콜라보카페</span>
+          <div class="status-dot starting" title="여행 기간 중 오픈!"></div>
+        </div>
+        <h3 class="card-title">薬屋のひとりごと<br>テーマカフェ</h3>
+        <p class="card-title-ko">약사의 혼잣말 테마 카페 ★ 오픈 신규!</p>
+        <p class="card-desc">
+          인기 소설·만화 <strong>「약사의 혼잣말」</strong> 기간 한정 테마 카페.
+          <strong>5월 14일(목) 이케부쿠로 오픈!</strong> 전통 한방약 콘셉트의 3가지 테마 메뉴. 여행 중 오픈 첫날부터 방문 가능.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn pink" href="https://kusuriya-cafe.ltr-online.com/" target="_blank">🔗 공식·예약 사이트 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋 · BOX cafe&space</div>
+        <span class="price">5/14 OPEN</span>
+      </div>
+    </article>
+
+    <!-- 5. 스미코구라시 카페 -->
+    <article class="event-card" data-cat="콜라보카페">
+      <div class="card-accent 콜라보카페"></div>
+      <div class="card-body">
+        <div class="panel-number">05</div>
+        <div class="card-meta">
+          <span class="cat-tag 콜라보카페">콜라보카페</span>
+          <div class="status-dot starting" title="여행 기간 중 오픈!"></div>
+        </div>
+        <h3 class="card-title">すみっコぐらし<br>コラボカフェ</h3>
+        <p class="card-title-ko">스미코구라시 콜라보 카페 ★ 오픈 신규!</p>
+        <p class="card-desc">
+          국민 캐릭터 <strong>스미코구라시</strong> × at-home cafe 콜라보.
+          <strong>5월 15일(금) 오픈</strong>, 이후 9월 14일까지 장기 운영. 5/15 오픈 당일 바로 방문 가능!
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn pink" href="https://www.cafe-athome.com/" target="_blank">🔗 공식 사이트 (秋葉原) →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>秋葉原 · あっとほぉーむカフェ</div>
+        <span class="price">5/15 OPEN</span>
+      </div>
+    </article>
+
+    <!-- 6. 란마 1/2 전시회 -->
+    <article class="event-card" data-cat="전시회">
+      <div class="card-accent 전시회"></div>
+      <div class="card-body">
+        <div class="panel-number">06</div>
+        <div class="card-meta">
+          <span class="cat-tag 전시회">전시회</span>
+          <div class="status-dot ending" title="5/12 마감!"></div>
+        </div>
+        <h3 class="card-title">TVアニメ「らんま1/2」展</h3>
+        <p class="card-title-ko">TV 애니메이션 「란마½」 전시회 ⚠️ 5/12 마감</p>
+        <p class="card-desc">
+          이케부쿠로 선샤인시티에서 열리는 대형 기획전. 명장면 대형 전시·포토스팟·천도가 응접실 실물 재현.
+          성우 야마구치 캇페이 보이스 드라마 음성 가이드(¥900) 필청!
+          <strong style="color:var(--pink);">5월 12일(화)이 마지막!</strong> 여행 첫날 바로 방문.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn cyan" href="https://ranma-exhibition.com/" target="_blank">🔗 공식 사이트·티켓 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋 · サンシャインシティ 展示ホールA</div>
+        <span class="price">¥2,200</span>
+      </div>
+    </article>
+
+    <!-- 7. 타네무라 아리나 30주년 기념전 -->
+    <article class="event-card" data-cat="전시회">
+      <div class="card-accent 전시회"></div>
+      <div class="card-body">
+        <div class="panel-number">07</div>
+        <div class="card-meta">
+          <span class="cat-tag 전시회">전시회</span>
+          <div class="status-dot ending" title="5/18 마감"></div>
+        </div>
+        <h3 class="card-title">種村有菜30周年記念展<br>きらめく少女たちの夢物語</h3>
+        <p class="card-title-ko">타네무라 아리나 30주년 기념전</p>
+        <p class="card-desc">
+          「풀문을 찾아서」「시간의 지배자」 등으로 유명한 소녀만화 작가 타네무라 아리나의 데뷔 30주년 기념 대규모 원화·기념전.
+          5월 18일까지 운영, 여행 전 기간 방문 가능.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 전시회"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn cyan" href="https://tanemuraarina30th.com/" target="_blank">🔗 공식 사이트 →</a>
+        <a class="reserve-btn cyan" href="https://eplus.jp/sf/word/0000173711" target="_blank" style="margin-top:6px;">🎟️ 이플러스 티켓 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋 · アニメイト池袋 8F Space Galleria</div>
+        <span class="price">~5/18</span>
+      </div>
+    </article>
+
+    <!-- 8. 앙상블 스타즈 × GiGO -->
+    <article class="event-card" data-cat="캠페인">
+      <div class="card-accent" style="background:linear-gradient(90deg,#f59e0b,#ec4899);"></div>
+      <div class="card-body">
+        <div class="panel-number">08</div>
+        <div class="card-meta">
+          <span class="cat-tag" style="color:#f59e0b; border-color:#f59e0b;">캠페인</span>
+          <div class="status-dot" title="운영 중"></div>
+        </div>
+        <h3 class="card-title">あんさんぶるスターズ!!<br>× GiGO キャンペーン</h3>
+        <p class="card-title-ko">앙상블 스타즈!! × GiGO 10주년 캠페인</p>
+        <p class="card-desc">
+          앙스타 10주년 기념 전국 GiGO 콜라보 캠페인. 도쿄 내 <strong>이케부쿠로·아키하바라·신주쿠 등 다수 GiGO 점포</strong>에서 오리지널 경품 크레인게임 설치.
+          아크릴 프레임·케이크형 디스플레이 스탠드·포스트카드 케이스 등 한정 굿즈. 입장 무료.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active" style="background:#f59e0b;"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#f59e0b;"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#f59e0b;"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#f59e0b;"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#f59e0b;"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn" href="https://campaign.gendagigo.jp/2603/ensemble-stars/" target="_blank" style="background:#f59e0b; border-color:#f59e0b; color:#0a0a0f;">🔗 캠페인 공식 사이트 →</a>
+        <a class="reserve-btn" href="https://www.gigo.co.jp/campaigns/2026-05-ensemblestars-cp?area=13" target="_blank" style="margin-top:6px; background:transparent; border-color:#f59e0b; color:#f59e0b;">📍 도쿄 점포 목록 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋 / 秋葉原 / 新宿 外 多数</div>
+        <span class="price">입장 무료 (크레인게임)</span>
+      </div>
+    </article>
+
+    <!-- 9. CAFE CINNAMON (앙스타 상설카페) -->
+    <article class="event-card" data-cat="콜라보카페">
+      <div class="card-accent 콜라보카페"></div>
+      <div class="card-body">
+        <div class="panel-number">09</div>
+        <div class="card-meta">
+          <span class="cat-tag 콜라보카페">콜라보카페</span>
+          <div class="status-dot" title="상시 운영 중"></div>
+        </div>
+        <h3 class="card-title">CAFE CINNAMON</h3>
+        <p class="card-title-ko">앙상블 스타즈!! 공인 상설 카페 · 池袋</p>
+        <p class="card-desc">
+          게임 속 Crazy:B의 니키가 일하는 카페 <strong>「CAFE CINNAMON」</strong>이 현실에! 2021년 오픈한 공인 상설 카페로 언제든 방문 가능.
+          게임 속 인테리어·메뉴를 충실히 재현. <strong>완전 예약제</strong>이므로 공식 사이트에서 반드시 사전 예약.
+          영업시간 11:00~20:00 (최종입장 19:00).
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active 콜라보카페"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn pink" href="https://es-cinnamon.cafe/" target="_blank">🔗 공식·예약 사이트 (완전예약제) →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>池袋 · 南池袋2-28-14 大和証券ビル1F</div>
+        <span class="price">상설 운영</span>
+      </div>
+    </article>
+
+    <!-- 10. 도쿄 디즈니랜드 -->
+    <article class="event-card" data-cat="테마파크">
+      <div class="card-accent" style="background:linear-gradient(90deg,#34d399,#059669);"></div>
+      <div class="card-body">
+        <div class="panel-number">10</div>
+        <div class="card-meta">
+          <span class="cat-tag" style="color:#34d399; border-color:#34d399;">테마파크</span>
+          <div class="status-dot" style="background:#34d399; box-shadow:0 0 8px #34d399;" title="운영 중"></div>
+        </div>
+        <h3 class="card-title">東京ディズニーランド<br>ヴァネロペのスウィーツ・ポップ・ワールド</h3>
+        <p class="card-title-ko">도쿄 디즈니랜드 · 파루파루자 제6탄</p>
+        <p class="card-desc">
+          「주먹왕 랄프」의 바넬로페가 꿈꾸는 사탕·과자 세계 테마 스페셜 이벤트.
+          퍼레이드 <strong>「イッツ・ア・スウィーツフルタイム！」</strong>, 한정 푸드·굿즈 다수.
+          4월 9일~6월 30일 개최로 여행 전 기간 즐길 수 있음.
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active" style="background:#34d399;"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#34d399;"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#34d399;"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#34d399;"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#34d399;"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn" href="https://www.tokyodisneyresort.jp/treasure/vanellopessweetpopworld2026/" target="_blank" style="background:#34d399; border-color:#34d399; color:#0a0a0f;">🔗 이벤트 공식 페이지 →</a>
+        <a class="reserve-btn" href="https://www.tokyodisneyresort.jp/hotel/ticket/purchase.html" target="_blank" style="margin-top:6px; background:transparent; border-color:#34d399; color:#34d399;">🎟️ 티켓 구매 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>浦安市舞浜1-1 · JR舞浜駅 도보 2분</div>
+        <span class="price">4/9~6/30</span>
+      </div>
+    </article>
+
+    <!-- 11. 도쿄 디즈니씨 -->
+    <article class="event-card" data-cat="테마파크">
+      <div class="card-accent" style="background:linear-gradient(90deg,#38bdf8,#0284c7);"></div>
+      <div class="card-body">
+        <div class="panel-number">11</div>
+        <div class="card-meta">
+          <span class="cat-tag" style="color:#38bdf8; border-color:#38bdf8;">테마파크</span>
+          <div class="status-dot" style="background:#38bdf8; box-shadow:0 0 8px #38bdf8;" title="운영 중"></div>
+        </div>
+        <h3 class="card-title">東京ディズニーシー<br>25周年 "スパークリング・ジュビリー"</h3>
+        <p class="card-title-ko">도쿄 디즈니씨 25주년 기념 이벤트</p>
+        <p class="card-desc">
+          디즈니씨 개장 25주년 대규모 기념 이벤트. 미디테라니언 하버에서
+          <strong>「スパークリング・ジュビリー・セレブレーション」</strong> 쇼 공연.
+          <strong>Food &amp; Wine Festival</strong>(4/9~6/30)도 동시 개최 — 각 테마포트의 한정 푸드 탐방 필수!
+        </p>
+        <div class="timeline">
+          <div class="timeline-label">▸ MAY 11–15 운영 현황</div>
+          <div class="timeline-bar-wrap">
+            <div class="day-slot"><div class="day-bar active" style="background:#38bdf8;"></div><span class="day-num">11</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#38bdf8;"></div><span class="day-num">12</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#38bdf8;"></div><span class="day-num">13</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#38bdf8;"></div><span class="day-num">14</span></div>
+            <div class="day-slot"><div class="day-bar active" style="background:#38bdf8;"></div><span class="day-num">15</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <a class="reserve-btn" href="https://www.tokyodisneyresort.jp/treasure/tds25th/" target="_blank" style="background:#38bdf8; border-color:#38bdf8; color:#0a0a0f;">🔗 25주년 이벤트 공식 페이지 →</a>
+        <a class="reserve-btn" href="https://www.tokyodisneyresort.jp/hotel/ticket/purchase.html" target="_blank" style="margin-top:6px; background:transparent; border-color:#38bdf8; color:#38bdf8;">🎟️ 티켓 구매 →</a>
+      </div>
+      <div class="card-footer">
+        <div class="location"><span class="location-icon">📍</span>浦安市舞浜1-13 · JR舞浜駅 리조트라인 이용</div>
+        <span class="price">4/15~2027/3/31</span>
+      </div>
+    </article>
+
+    <!-- NOT AVAILABLE: リボン / ズートピア2 -->
+    <div class="missed-section" id="missed-section">
+      <div class="missed-title">⚠️ 여행 기간(5/11~15) 중 도쿄에서 확인되지 않은 이벤트</div>
+      <div class="missed-list">
+        <div class="missed-item">
+          <span class="missed-badge">리본</span>
+          <span>家庭教師ヒットマンREBORN! — 20주년 이벤트 다수지만 5월 도쿄 이벤트 없음 (가장 가까운 건 5/6 종료). 공식 X @khreborn_pr에서 추가 발표 주목.</span>
+        </div>
+        <div class="missed-item">
+          <span class="missed-badge">주토피아2</span>
+          <span>ズートピア2 OH MY CAFE 도쿄·오모테산도점 — 4월 19일 종료. 여행 기간에는 운영하지 않음.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="empty">
+      <div class="empty-icon">🔍</div>
+      <p class="empty-text">해당 카테고리 이벤트 없음</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- MAP SECTION -->
+<section class="map-section">
+  <div class="map-header">
+    <h2>📍 이벤트 지도</h2>
+    <div class="map-legend">
+      <div class="map-legend-item">
+        <div class="map-legend-dot" style="background:var(--pink);"></div>콜라보카페
+      </div>
+      <div class="map-legend-item">
+        <div class="map-legend-dot" style="background:var(--cyan);"></div>전시회
+      </div>
+      <div class="map-legend-item">
+        <div class="map-legend-dot" style="background:#f59e0b;"></div>캠페인
+      </div>
+      <div class="map-legend-item">
+        <div class="map-legend-dot" style="background:#34d399;"></div>디즈니랜드
+      </div>
+      <div class="map-legend-item">
+        <div class="map-legend-dot" style="background:#38bdf8;"></div>디즈니씨
+      </div>
+    </div>
+  </div>
+  <div id="map"></div>
+</section>
+
+<!-- DISNEY SCHEDULE SECTION -->
+<section class="disney-section" id="disney-schedule">
+  <div class="disney-header">
+    <div class="disney-header-inner">
+      <div class="disney-header-tag">THEME PARK SCHEDULE</div>
+      <h2 class="disney-header-title">도쿄 디즈니리조트<br><em>시간표 가이드</em></h2>
+      <p class="disney-header-sub">東京ディズニーリゾート · 2026.05.11–15</p>
+    </div>
+  </div>
+
+  <!-- PARK SELECTOR TABS -->
+  <div class="disney-tabs">
+    <button class="disney-tab active" data-park="land" onclick="switchPark('land', this)">
+      <span class="tab-emoji">🏰</span>
+      <span>디즈니랜드</span>
+      <span class="tab-sub">スウィーツ・ポップ・ワールド</span>
+    </button>
+    <button class="disney-tab" data-park="sea" onclick="switchPark('sea', this)">
+      <span class="tab-emoji">⚓</span>
+      <span>디즈니씨</span>
+      <span class="tab-sub">25周年 スパークリング・ジュビリー</span>
+    </button>
+  </div>
+
+  <!-- DISNEY LAND PANEL -->
+  <div class="park-panel" id="panel-land">
+    <div class="park-info-bar" style="border-color:#34d399;">
+      <div class="park-info-items">
+        <div class="park-info-item">
+          <div class="park-info-label">개장 시간</div>
+          <div class="park-info-val" style="color:#34d399;">09:00 ~ 21:00</div>
+        </div>
+        <div class="park-info-item">
+          <div class="park-info-label">이벤트</div>
+          <div class="park-info-val">ヴァネロペの<br>スウィーツ・ポップ・ワールド</div>
+        </div>
+        <div class="park-info-item">
+          <div class="park-info-label">기간</div>
+          <div class="park-info-val">4/9 ~ 6/30</div>
+        </div>
+        <div class="park-info-item">
+          <div class="park-info-label">입장권</div>
+          <div class="park-info-val">¥7,900~¥10,900</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAILY TIMETABLE: LAND -->
+    <div class="timetable-wrap">
+      <div class="timetable-title">
+        <span class="tt-icon" style="background:#34d399;">⏰</span>
+        일별 쇼·이벤트 시간표
+        <span class="tt-note">※ 공식 앱으로 당일 정확한 시간 반드시 확인</span>
+      </div>
+
+      <div class="timetable-grid" id="land-timetable">
+
+        <!-- TIME AXIS -->
+        <div class="time-axis">
+          <div class="axis-label">시간</div>
+          <div class="axis-slots">
+            <div class="axis-time">09:00</div>
+            <div class="axis-time">10:00</div>
+            <div class="axis-time">11:00</div>
+            <div class="axis-time">12:00</div>
+            <div class="axis-time">13:00</div>
+            <div class="axis-time">14:00</div>
+            <div class="axis-time">15:00</div>
+            <div class="axis-time">16:00</div>
+            <div class="axis-time">17:00</div>
+            <div class="axis-time">18:00</div>
+            <div class="axis-time">19:00</div>
+            <div class="axis-time">20:00</div>
+            <div class="axis-time">21:00</div>
+          </div>
+        </div>
+
+        <!-- DAY COLUMNS: 5/11~5/15 -->
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/11</span><span class="dcol-day">월</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;">
+              <div class="show-block-label" style="color:#34d399;">OPEN 09:00</div>
+            </div>
+            <div class="show-block land-show" style="top:180px;">
+              <div class="show-time">14:00</div>
+              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-show" style="top:300px;">
+              <div class="show-time">16:30</div>
+              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-night" style="top:420px;">
+              <div class="show-time">20:00</div>
+              <div class="show-name">나이트<br>엔터테인먼트</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/12</span><span class="dcol-day">화</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
+            <div class="show-block land-show" style="top:180px;">
+              <div class="show-time">14:00</div>
+              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-show" style="top:300px;">
+              <div class="show-time">16:30</div>
+              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-night" style="top:420px;">
+              <div class="show-time">20:00</div>
+              <div class="show-name">나이트<br>엔터테인먼트</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/13</span><span class="dcol-day">수</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
+            <div class="show-block land-show" style="top:180px;">
+              <div class="show-time">14:00</div>
+              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-show" style="top:300px;">
+              <div class="show-time">16:30</div>
+              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-night" style="top:420px;">
+              <div class="show-time">20:00</div>
+              <div class="show-name">나이트<br>엔터테인먼트</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/14</span><span class="dcol-day">목</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
+            <div class="show-block land-show" style="top:180px;">
+              <div class="show-time">14:00</div>
+              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-show" style="top:300px;">
+              <div class="show-time">16:30</div>
+              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-night" style="top:420px;">
+              <div class="show-time">20:00</div>
+              <div class="show-name">나이트<br>엔터테인먼트</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/15</span><span class="dcol-day">금</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(52,211,153,0.08); border:1.5px dashed #34d39966;"></div>
+            <div class="show-block land-show" style="top:180px;">
+              <div class="show-time">14:00</div>
+              <div class="show-name">퍼레이드①<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-show" style="top:300px;">
+              <div class="show-time">16:30</div>
+              <div class="show-name">퍼레이드②<br>イッツ・ア・<br>スウィーツフル</div>
+            </div>
+            <div class="show-block land-night" style="top:420px;">
+              <div class="show-time">20:00</div>
+              <div class="show-name">나이트<br>엔터테인먼트</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /timetable-wrap -->
+
+    <!-- LAND: KEY POINTS CARDS -->
+    <div class="disney-tips">
+      <div class="tips-title" style="color:#34d399;">🏰 디즈니랜드 공략 포인트</div>
+      <div class="tips-grid">
+
+        <div class="tip-card" style="border-color:#34d399;">
+          <div class="tip-icon">🎠</div>
+          <div class="tip-head">퍼레이드 — イッツ・ア・スウィーツフルタイム！</div>
+          <div class="tip-body">
+            바넬로페 & 사탕왕국 캐릭터들이 등장하는 신규 퍼레이드. 하루 <strong>2회 공연</strong>(약 14:00 / 16:30). 인기 구간은 월드바자·위니더푸 앞. 당일 앱에서 정확한 시간 확인 필수.
+          </div>
+          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">퍼레이드</div>
+        </div>
+
+        <div class="tip-card" style="border-color:#34d399;">
+          <div class="tip-icon">🍬</div>
+          <div class="tip-head">이벤트 한정 푸드·굿즈</div>
+          <div class="tip-body">
+            바넬로페 테마 디저트·음료 다수. 한정 굿즈는 오픈 직후 품절 가능성 높음. <strong>개장 전 30분</strong> 입장 줄 서기 권장. 푸드는 월드바자·판타지랜드 집중.
+          </div>
+          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">푸드&굿즈</div>
+        </div>
+
+        <div class="tip-card" style="border-color:#34d399;">
+          <div class="tip-icon">📱</div>
+          <div class="tip-head">디즈니 공식 앱 필수 기능</div>
+          <div class="tip-body">
+            <strong>DPA(디즈니 프리미어 액세스)</strong> — 빅선더·스페이스마운틴 등 유료 패스(¥1,500~2,000). <strong>스탠바イパス</strong> — 무료 시간 지정권, 오픈 직후 선점. 당일 쇼 시간표도 앱에서 확인.
+          </div>
+          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">앱 활용</div>
+        </div>
+
+        <div class="tip-card" style="border-color:#34d399;">
+          <div class="tip-icon">⏱️</div>
+          <div class="tip-head">추천 동선 (평일 기준)</div>
+          <div class="tip-body">
+            <strong>09:00</strong> 입장 → 빅선더·스페이스마운틴 스탠바이파스 즉시 취득 → <strong>11:00~13:00</strong> 이벤트 한정 굿즈 구매 → <strong>14:00</strong> 퍼레이드 관람 → 어트랙션 → <strong>16:30</strong> 퍼레이드 2회차 → <strong>20:00</strong> 나이트 쇼
+          </div>
+          <div class="tip-tag" style="background:#34d399; color:#0a0a0f;">동선</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /panel-land -->
+
+  <!-- DISNEY SEA PANEL -->
+  <div class="park-panel hidden" id="panel-sea">
+    <div class="park-info-bar" style="border-color:#38bdf8;">
+      <div class="park-info-items">
+        <div class="park-info-item">
+          <div class="park-info-label">개장 시간</div>
+          <div class="park-info-val" style="color:#38bdf8;">09:00 ~ 21:00</div>
+        </div>
+        <div class="park-info-item">
+          <div class="park-info-label">이벤트</div>
+          <div class="park-info-val">25周年<br>スパークリング・ジュビリー</div>
+        </div>
+        <div class="park-info-item">
+          <div class="park-info-label">기간</div>
+          <div class="park-info-val">4/15~2027/3/31</div>
+        </div>
+        <div class="park-info-item">
+          <div class="park-info-label">입장권</div>
+          <div class="park-info-val">¥7,900~¥10,900</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAILY TIMETABLE: SEA -->
+    <div class="timetable-wrap">
+      <div class="timetable-title">
+        <span class="tt-icon" style="background:#38bdf8; color:#0a0a0f;">⏰</span>
+        일별 쇼·이벤트 시간표
+        <span class="tt-note">※ 공식 앱으로 당일 정확한 시간 반드시 확인</span>
+      </div>
+
+      <div class="timetable-grid" id="sea-timetable">
+
+        <div class="time-axis">
+          <div class="axis-label">시간</div>
+          <div class="axis-slots">
+            <div class="axis-time">09:00</div>
+            <div class="axis-time">10:00</div>
+            <div class="axis-time">11:00</div>
+            <div class="axis-time">12:00</div>
+            <div class="axis-time">13:00</div>
+            <div class="axis-time">14:00</div>
+            <div class="axis-time">15:00</div>
+            <div class="axis-time">16:00</div>
+            <div class="axis-time">17:00</div>
+            <div class="axis-time">18:00</div>
+            <div class="axis-time">19:00</div>
+            <div class="axis-time">20:00</div>
+            <div class="axis-time">21:00</div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/11</span><span class="dcol-day">월</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
+            <div class="show-block sea-show" style="top:120px;">
+              <div class="show-time">12:00</div>
+              <div class="show-name">스파클링<br>주빌리①</div>
+            </div>
+            <div class="show-block sea-show" style="top:240px;">
+              <div class="show-time">15:00</div>
+              <div class="show-name">스파클링<br>주빌리②</div>
+            </div>
+            <div class="show-block sea-night" style="top:400px;">
+              <div class="show-time">19:30</div>
+              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/12</span><span class="dcol-day">화</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
+            <div class="show-block sea-show" style="top:120px;">
+              <div class="show-time">12:00</div>
+              <div class="show-name">스파클링<br>주빌리①</div>
+            </div>
+            <div class="show-block sea-show" style="top:240px;">
+              <div class="show-time">15:00</div>
+              <div class="show-name">스파클링<br>주빌리②</div>
+            </div>
+            <div class="show-block sea-night" style="top:400px;">
+              <div class="show-time">19:30</div>
+              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/13</span><span class="dcol-day">수</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
+            <div class="show-block sea-show" style="top:120px;">
+              <div class="show-time">12:00</div>
+              <div class="show-name">스파클링<br>주빌리①</div>
+            </div>
+            <div class="show-block sea-show" style="top:240px;">
+              <div class="show-time">15:00</div>
+              <div class="show-name">스파클링<br>주빌리②</div>
+            </div>
+            <div class="show-block sea-night" style="top:400px;">
+              <div class="show-time">19:30</div>
+              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/14</span><span class="dcol-day">목</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
+            <div class="show-block sea-show" style="top:120px;">
+              <div class="show-time">12:00</div>
+              <div class="show-name">스파클링<br>주빌리①</div>
+            </div>
+            <div class="show-block sea-show" style="top:240px;">
+              <div class="show-time">15:00</div>
+              <div class="show-name">스파클링<br>주빌리②</div>
+            </div>
+            <div class="show-block sea-night" style="top:400px;">
+              <div class="show-time">19:30</div>
+              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-col">
+          <div class="day-col-header"><span class="dcol-date">5/15</span><span class="dcol-day">금</span></div>
+          <div class="day-col-body">
+            <div class="show-block" style="top:0px; height:480px; background:rgba(56,189,248,0.08); border:1.5px dashed #38bdf866;"></div>
+            <div class="show-block sea-show" style="top:120px;">
+              <div class="show-time">12:00</div>
+              <div class="show-name">스파클링<br>주빌리①</div>
+            </div>
+            <div class="show-block sea-show" style="top:240px;">
+              <div class="show-time">15:00</div>
+              <div class="show-name">스파클링<br>주빌리②</div>
+            </div>
+            <div class="show-block sea-night" style="top:400px;">
+              <div class="show-time">19:30</div>
+              <div class="show-name">판타즈믹!<br>Fantasmic!</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /timetable-wrap -->
+
+    <!-- SEA: KEY POINTS CARDS -->
+    <div class="disney-tips">
+      <div class="tips-title" style="color:#38bdf8;">⚓ 디즈니씨 공략 포인트</div>
+      <div class="tips-grid">
+
+        <div class="tip-card" style="border-color:#38bdf8;">
+          <div class="tip-icon">✨</div>
+          <div class="tip-head">스파클링 주빌리 셀레브레이션</div>
+          <div class="tip-body">
+            지중해 항구(メディテラニアンハーバー) 수면 위에서 펼쳐지는 25주년 주간 공연. 미키·미니 등 캐릭터 등장. <strong>하루 2~3회 공연</strong>. 관람 최적 위치는 분수광장 정면·까르네발로 레스토랑 앞. DPA 없이 무료 관람 가능.
+          </div>
+          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">25주년 쇼</div>
+        </div>
+
+        <div class="tip-card" style="border-color:#38bdf8;">
+          <div class="tip-icon">🍷</div>
+          <div class="tip-head">Food &amp; Wine Festival (4/9~6/30)</div>
+          <div class="tip-body">
+            각 테마포트마다 한정 음식·음료 부스 운영. 이탈리안 · 아메리카 · 아라비안 · 로스트리버 등 7개 포트별 특색 메뉴. <strong>12:00 전후 혼잡</strong>하므로 오픈 직후 또는 14:00 이후 방문 추천.
+          </div>
+          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">음식축제</div>
+        </div>
+
+        <div class="tip-card" style="border-color:#38bdf8;">
+          <div class="tip-icon">🎭</div>
+          <div class="tip-head">Fantasmic! 나이트쇼</div>
+          <div class="tip-body">
+            지중해 항구에서 밤마다 펼쳐지는 대규모 불·물·프로젝션 쇼. 매일 개최는 아님 — <strong>공식 앱에서 당일 개최 여부 확인 필수</strong>. DPA(유료) 또는 일반 무료 관람석(선착순 대기) 선택 가능.
+          </div>
+          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">나이트쇼</div>
+        </div>
+
+        <div class="tip-card" style="border-color:#38bdf8;">
+          <div class="tip-icon">⏱️</div>
+          <div class="tip-head">추천 동선 (평일 기준)</div>
+          <div class="tip-body">
+            아래 상세 동선 참고 — 소어링 제외, 판타지 스프링스·인디존스 중심 루트
+          </div>
+          <div class="tip-tag" style="background:#38bdf8; color:#0a0a0f;">동선</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEA DETAILED ROUTE -->
+    <div class="sea-route">
+      <div class="sea-route-header">
+        <span class="route-icon">🗺️</span>
+        <div>
+          <div class="route-title">디즈니씨 추천 동선</div>
+          <div class="route-sub">소어링 제외 · 판타지 스프링스 + 인디존스 중심 · 평일 기준</div>
+        </div>
+      </div>
+
+      <div class="route-timeline">
+
+        <div class="route-step opening">
+          <div class="route-time-col">
+            <div class="route-time">09:00</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">입장 &amp; 즉시 DPA 구매</div>
+            <div class="route-step-body">
+              게이트 통과 직후 앱 실행 → <strong>인디아나 존스 어드벤처 DPA</strong>(¥1,500~2,000) 즉시 구매.
+              <br>그 다음 <strong>판타지 스프링스(Fantasy Springs)</strong> 스탠바이파스도 바로 취득 (프로즌 에버 애프터 또는 피터팬 우선).
+            </div>
+            <div class="route-tags">
+              <span class="r-tag blue">DPA 구매</span>
+              <span class="r-tag blue">스탠바이파스 취득</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">09:20</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">판타지 스프링스 — <span style="color:#38bdf8;">프로즌 에버 애프터</span></div>
+            <div class="route-step-body">
+              오픈 직후가 가장 짧은 대기. 엘사·안나의 아렌델 왕국을 보트로 여행하는 라이드.
+              스탠바이파스 시간이 됐다면 바로 탑승.
+              <br><span class="route-warn">⚠️ 스탠바이파스 없으면 오픈 직후에도 60~90분 대기 발생</span>
+            </div>
+            <div class="route-tags">
+              <span class="r-tag green">판타지 스프링스</span>
+              <span class="r-tag">약 45분</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">10:15</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">판타지 스프링스 — <span style="color:#38bdf8;">피터팬의 네버랜드 어드벤처</span></div>
+            <div class="route-step-body">
+              판타지 스프링스 안에 있으므로 이동 최소. 인기 라이드 2개를 한 지역에서 연속 탑승.
+              라푼젤 랜턴 페스티벌도 여유 있으면 추가.
+            </div>
+            <div class="route-tags">
+              <span class="r-tag green">판타지 스프링스</span>
+              <span class="r-tag">약 40분</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">11:10</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">타워 오브 테러 → 토이스토리 마니아</div>
+            <div class="route-step-body">
+              아메리칸 워터프론트 구역으로 이동. <strong>타워 오브 테러</strong>는 오전 중 대기가 상대적으로 짧음.
+              바로 옆 <strong>토이스토리 마니아</strong>도 연달아 탑승. 두 어트랙션 모두 스탠바이파스 대상이므로 앱 확인.
+            </div>
+            <div class="route-tags">
+              <span class="r-tag">아메리칸 워터프론트</span>
+              <span class="r-tag">약 60분</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step food">
+          <div class="route-time-col">
+            <div class="route-time">12:15</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">Food &amp; Wine Festival 런치 탐방</div>
+            <div class="route-step-body">
+              지중해 항구 주변 부스 먼저 → 로스트리버 델타 쪽으로 이동하며 간식 탐방.
+              <strong>12:00 스파클링 주빌리 1회차</strong>를 밥 먹으면서 자연스럽게 관람 가능 (항구 광장 근처 식사 추천).
+            </div>
+            <div class="route-tags">
+              <span class="r-tag yellow">F&amp;W 페스티벌</span>
+              <span class="r-tag blue">스파클링 주빌리 1회차 관람</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">13:30</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">인디아나 존스 어드벤처 (DPA 시간대)</div>
+            <div class="route-step-body">
+              오전에 구매한 DPA 시간대에 맞춰 로스트리버 델타로 이동. 대기 없이 탑승.
+              근처 <strong>레이징 스피리츠</strong>도 여유 있으면 추가 (스탠바이파스 확인).
+            </div>
+            <div class="route-tags">
+              <span class="r-tag">로스트리버 델타</span>
+              <span class="r-tag blue">DPA 사용</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">14:30</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">아라비안 코스트 — 신드바드 스토리북 보야지</div>
+            <div class="route-step-body">
+              대기 짧고 내부가 아름다움. 25주년 특별 영상 연출 여부 앱 확인.
+              마법의 램프 극장도 시간 맞으면 체크.
+            </div>
+            <div class="route-tags">
+              <span class="r-tag">아라비안 코스트</span>
+              <span class="r-tag">여유 탑승</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">15:00</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">스파클링 주빌리 셀레브레이션 2회차 관람</div>
+            <div class="route-step-body">
+              지중해 항구 광장 정면 확보. 2회차는 조명이 더 화려하게 보임.
+              <strong>14:45</strong>까지 관람 좋은 자리 선점 권장. 공연 후 굿즈숍 들리기.
+            </div>
+            <div class="route-tags">
+              <span class="r-tag blue">스파클링 주빌리 2회차</span>
+              <span class="r-tag">약 20분</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step">
+          <div class="route-time-col">
+            <div class="route-time">15:30</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">25주년 한정 굿즈 &amp; 저녁 전 여유 어트랙션</div>
+            <div class="route-step-body">
+              메디테라니언 하버 주변 기념품 쇼핑. 미처 못 탄 어트랙션 재도전 (대기 시간 앱으로 확인).
+              저녁식사는 <strong>17:00~18:00</strong> 사이 레스토랑 예약 또는 F&amp;W 부스 이용.
+            </div>
+            <div class="route-tags">
+              <span class="r-tag yellow">25주년 굿즈</span>
+              <span class="r-tag">자유 시간</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step night">
+          <div class="route-time-col">
+            <div class="route-time">19:00</div>
+            <div class="route-vline"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">Fantasmic! 관람 자리 선점</div>
+            <div class="route-step-body">
+              개최 당일 19:30 공연이면 최소 <strong>30분 전</strong> 지중해 항구 광장 자리 잡기.
+              DPA(유료) 구매 시 지정석 이용 가능. 불·물·프로젝션이 어우러지는 씨의 하이라이트.
+              <br><span class="route-warn">⚠️ 날씨에 따라 당일 취소 가능 — 앱으로 반드시 확인</span>
+            </div>
+            <div class="route-tags">
+              <span class="r-tag blue">Fantasmic!</span>
+              <span class="r-tag">약 30분</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-step closing">
+          <div class="route-time-col">
+            <div class="route-time">20:30</div>
+            <div class="route-vline last"></div>
+          </div>
+          <div class="route-content">
+            <div class="route-step-head">파크 클로징 전 마지막 쇼핑 &amp; 퇴장</div>
+            <div class="route-step-body">
+              폐장(21:00) 30분 전 입구 방향 이동. 월드바자 같은 대형 쇼핑몰은 폐장 후에도 잠깐 운영.
+              마이하마역 혼잡 피하려면 <strong>20:40~20:50</strong> 사이 나오는 것 추천.
+            </div>
+            <div class="route-tags">
+              <span class="r-tag">쇼핑</span>
+              <span class="r-tag">퇴장</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /route-timeline -->
+    </div><!-- /sea-route -->
+
+  </div><!-- /panel-sea -->
+
+  <!-- COMMON NOTES -->
+  <div class="disney-notes">
+    <div class="notes-inner">
+      <div class="note-block">
+        <div class="note-head">🚆 교통</div>
+        <div class="note-body">JR 게이요선 마이하마(舞浜)역 하차. 랜드까지 도보 2분 / 씨는 리조트라인(모노레일) 이용 약 5~10분. IC 카드(Suica·PASMO) 사용 가능.</div>
+      </div>
+      <div class="note-block">
+        <div class="note-head">📅 예약</div>
+        <div class="note-body">티켓은 공식 사이트에서 날짜 지정 구매. 당일권은 현장에서 구매 불가(매진 시). <strong>가능한 한 사전 온라인 구매 필수.</strong></div>
+      </div>
+      <div class="note-block">
+        <div class="note-head">⚠️ 주의</div>
+        <div class="note-body">표기된 쇼 시간은 <strong>일반적인 기준</strong>이며, 날씨·운영 상황에 따라 변경·취소될 수 있습니다. 방문 당일 도쿄 디즈니 공식 앱에서 최신 정보를 반드시 확인하세요.</div>
+      </div>
+      <div class="note-block">
+        <div class="note-head">💡 꿀팁</div>
+        <div class="note-body">두 파크 모두 방문 계획이라면 <strong>파크 호핑 옵션권</strong>(+¥2,200) 추가 구매 시 15:00 이후 타 파크로 이동 가능. 랜드 → 씨 순서 추천.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">도쿄 만화·애니 이벤트 가이드</div>
+      <p class="footer-note" style="margin-top:8px;">
+        ※ 일정·장소는 변경될 수 있습니다. 방문 전 공식 사이트에서 반드시 확인하세요.<br>
+        ※ 콜라보카페는 복권 추첨 예약이 필요한 경우가 많습니다.
+      </p>
+    </div>
+    <div class="footer-sources">
+      <div style="margin-bottom:6px; color:rgba(245,240,232,0.4); font-size:11px; letter-spacing:1px;">SOURCES</div>
+      <a href="https://collabo-cafe.com/" target="_blank">collabo-cafe.com</a>
+      <a href="https://ranma-exhibition.com/" target="_blank">らんま1/2展 公式</a>
+      <a href="https://essential-japan.com/events/" target="_blank">essential-japan.com</a>
+      <a href="https://animemaps.com/anime-event-calendar-map/" target="_blank">animemaps.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Filter logic
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.event-card');
+    let visible = 0;
+    cards.forEach(card => {
+      if (cat === '전체' || card.dataset.cat === cat) {
+        card.classList.remove('hidden');
+        visible++;
+        card.style.animation = 'none';
+        card.offsetHeight;
+        card.style.animation = '';
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('count-badge').textContent = visible;
+    document.getElementById('empty').classList.toggle('visible', visible === 0);
+
+    // missed section 표시 제어
+    const missed = document.getElementById('missed-section');
+    if (missed) missed.style.display = (cat === '전체') ? '' : 'none';
+  }
+
+  // 초기 카운트
+  document.getElementById('count-badge').textContent = document.querySelectorAll('.event-card').length;
+
+  // ── MAP ──
+  const map = L.map('map', { zoomControl: true }).setView([35.690, 139.780], 12);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  function makeIcon(color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="
+        width:28px; height:28px;
+        background:${color};
+        border:2.5px solid #0a0a0f;
+        border-radius:50% 50% 50% 0;
+        transform:rotate(-45deg);
+        box-shadow:3px 3px 0 rgba(0,0,0,0.4);
+      "></div>`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
+      popupAnchor: [0, -30]
+    });
+  }
+
+  function popup(cat, catColor, title, sub, date, url, urlLabel) {
+    return `<div class="map-popup">
+      <div class="map-popup-cat" style="color:${catColor};">${cat}</div>
+      <div class="map-popup-title">${title}</div>
+      <div class="map-popup-sub">${sub}</div>
+      <div class="map-popup-date">${date}</div>
+      <a class="map-popup-link" href="${url}" target="_blank">${urlLabel} →</a>
+    </div>`;
+  }
+
+  const PINK = '#ff3d78', CYAN = '#00e8d4', ORANGE = '#f59e0b';
+
+  const events = [
+    {
+      lat: 35.6593, lng: 139.7016,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: '名探偵コナンカフェ', sub: 'BOX cafe&space GEMS渋谷店',
+      date: '~5/17(일)', url: 'https://conan-cafe.jp/', label: '공식·예약 사이트'
+    },
+    {
+      lat: 35.7280, lng: 139.7109,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: '名探偵コナンカフェ', sub: 'BOX cafe&space グランドスケープ池袋店',
+      date: '~5/17(일)', url: 'https://conan-cafe.jp/information/ikebukuro/', label: '공식·예약 사이트'
+    },
+    {
+      lat: 35.7100, lng: 139.8077,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: '名探偵コナンカフェ', sub: 'BOX cafe&space 東京ソラマチ店',
+      date: '~5/17(일)', url: 'https://conan-cafe.jp/', label: '공식·예약 사이트'
+    },
+    {
+      lat: 35.7284, lng: 139.7103,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: '桜蘭高校ホスト部 コラボカフェ', sub: 'motto cafe 池袋店',
+      date: '5/12~5/17 (5/11 휴업)', url: 'https://ouran-2nd.hakusensha-cafe.com/ikebukuro/', label: '공식 사이트'
+    },
+    {
+      lat: 35.7304, lng: 139.7096,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: 'ブラック・ジャック コラボカフェ', sub: 'Collabo_Index 池袋PARCO店',
+      date: '~5/18(월)', url: 'https://collabo.sld-inc.com/blackjack', label: '공식·예약 사이트'
+    },
+    {
+      lat: 35.7291, lng: 139.7112,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: '薬屋のひとりごと 原作カフェ', sub: 'BOX cafe&space 池袋 (5/14 오픈!)',
+      date: '5/14 OPEN ~7/5', url: 'https://kusuriya-cafe.ltr-online.com/', label: '공식·예약 사이트'
+    },
+    {
+      lat: 35.7023, lng: 139.7741,
+      color: PINK,
+      cat: '콜라보카페', catColor: PINK,
+      title: 'すみっコぐらし × あっとほぉーむカフェ', sub: '秋葉原 あっとほぉーむカフェ (5/15 오픈!)',
+      date: '5/15 OPEN ~7/31', url: 'https://www.cafe-athome.com/', label: '공식 사이트'
+    },
+    {
+      lat: 35.7285, lng: 139.7194,
+      color: CYAN,
+      cat: '전시회', catColor: CYAN,
+      title: 'TVアニメ「らんま1/2」展', sub: 'サンシャインシティ 展示ホールA',
+      date: '⚠️ ~5/12(화) 마감', url: 'https://ranma-exhibition.com/', label: '공식·티켓 사이트'
+    },
+    {
+      lat: 35.7301, lng: 139.7114,
+      color: CYAN,
+      cat: '전시회', catColor: CYAN,
+      title: '種村有菜30周年記念展', sub: 'アニメイト池袋本店 8F Space Galleria',
+      date: '~5/18(월)', url: 'https://tanemuraarina30th.com/', label: '공식 사이트'
+    },
+    {
+      lat: 35.7267, lng: 139.7129,
+      color: PINK,
+      cat: '콜라보카페 (상설)', catColor: PINK,
+      title: 'CAFE CINNAMON', sub: '앙상블 스타즈!! 공인 상설 카페 · 南池袋2-28-14',
+      date: '상시 운영 (완전예약제) 11:00~20:00', url: 'https://es-cinnamon.cafe/', label: '공식·예약 사이트'
+    },
+    {
+      lat: 35.7292, lng: 139.7099,
+      color: ORANGE,
+      cat: '캠페인', catColor: ORANGE,
+      title: 'あんさんぶるスターズ!! × GiGO', sub: 'GiGO 池袋 外 都内多数店舗',
+      date: '5/1 ~5/31', url: 'https://campaign.gendagigo.jp/2603/ensemble-stars/', label: '캠페인 공식 사이트'
+    },
+    {
+      lat: 35.7019, lng: 139.7739,
+      color: ORANGE,
+      cat: '캠페인', catColor: ORANGE,
+      title: 'あんさんぶるスターズ!! × GiGO', sub: 'GiGO 秋葉原 外 都内多数店舗',
+      date: '5/1 ~5/31', url: 'https://campaign.gendagigo.jp/2603/ensemble-stars/', label: '캠페인 공식 사이트'
+    },
+    {
+      lat: 35.6329, lng: 139.8804,
+      color: '#34d399',
+      cat: '테마파크', catColor: '#34d399',
+      title: '東京ディズニーランド', sub: 'ヴァネロペのスウィーツ・ポップ・ワールド',
+      date: '4/9~6/30 · 퍼레이드 매일 공연', url: 'https://www.tokyodisneyresort.jp/treasure/vanellopessweetpopworld2026/', label: '이벤트 공식 페이지'
+    },
+    {
+      lat: 35.6267, lng: 139.8854,
+      color: '#38bdf8',
+      cat: '테마파크', catColor: '#38bdf8',
+      title: '東京ディズニーシー', sub: '25周年 スパークリング・ジュビリー + Food & Wine Festival',
+      date: '4/15~2027/3/31 (F&W 4/9~6/30)', url: 'https://www.tokyodisneyresort.jp/treasure/tds25th/', label: '25주년 이벤트 페이지'
+    },
+  ];
+
+  events.forEach(e => {
+    L.marker([e.lat, e.lng], { icon: makeIcon(e.color) })
+      .addTo(map)
+      .bindPopup(popup(e.cat, e.catColor, e.title, e.sub, e.date, e.url, e.label), { maxWidth: 260 });
+  });
+
+  // Disney park tab switcher
+  function switchPark(park, btn) {
+    document.querySelectorAll('.disney-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.park-panel').forEach(p => p.classList.add('hidden'));
+    document.getElementById('panel-' + park).classList.remove('hidden');
+  }
+
+  // Stagger card animations on load
+  document.querySelectorAll('.event-card').forEach((card, i) => {
+    card.style.animationDelay = `${i * 0.07}s`;
+  });
+</script>
+</body>
+</html>
